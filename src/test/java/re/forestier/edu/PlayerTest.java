@@ -51,6 +51,15 @@ public class PlayerTest {
         assertThat(player1.inventory.isEmpty(), is(true));
     }
 
+    @Test
+    void testInvalidAvatarClass() {
+        player player = new player(
+                "Florian", "Hero", "MAGE",
+                100, new ArrayList<>());
+
+        assertThat(player.getAvatarClass(), is(nullValue()));
+    }
+
     // --------------- Player - addMoeny() -------------------
 
     // Initial money = 100
