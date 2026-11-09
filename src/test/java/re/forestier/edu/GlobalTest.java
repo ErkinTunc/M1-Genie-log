@@ -15,12 +15,17 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class GlobalTest {
 
+    // --- Golden Master Testing Method ---
+
     @Test
     void testAffichageBase() {
-        player player = new player("Florian", "Gnognak le Barbare", "ADVENTURER", 200, new ArrayList<>());
-        UpdatePlayer.addXp(player, 20);
-        player.inventory = new ArrayList<>();
+        player player1 = new player(
+            "Florian", "Gnognak le Barbare",
+             "ADVENTURER", 200, new ArrayList<>());
 
-        verify(Affichage.afficherJoueur(player));
+        UpdatePlayer.addXp(player1, 20);
+        player1.inventory = new ArrayList<>();
+
+        verify(Affichage.afficherJoueur(player1));
     }
 }
