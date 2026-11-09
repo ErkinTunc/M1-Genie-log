@@ -236,4 +236,18 @@ public class UpdatePlayerTest {
 
         assertThat(player.currenthealthpoints, is(45));
     }
+
+    // ----------- Invalid Health State -----------
+
+    @Test
+    void testInvalidHealthState() {
+        UpdatePlayer.addXp(player1, 27);
+
+        player1.healthpoints = 0;
+        player1.currenthealthpoints = -1;
+
+        UpdatePlayer.majFinDeTour(player1);
+
+        assertThat(player1.currenthealthpoints, is(0));
+    }
 }
