@@ -17,7 +17,6 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-    testImplementation 'org.pitest:pitest-junit5-plugin:0.12'
     testImplementation("com.approvaltests:approvaltests:15.6.0")
     implementation 'org.hamcrest:hamcrest:2.2'
     implementation("org.freemarker:freemarker:2.3.30")
@@ -29,6 +28,10 @@ test {
     useJUnitPlatform()
 }
 
- application {
-     mainClass = 're.forestier.edu.Main'
- }
+application {
+    mainClass = 're.forestier.edu.Main'
+}
+
+pitest {
+    junit5PluginVersion = '1.2.2'
+}
