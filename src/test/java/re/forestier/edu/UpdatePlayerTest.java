@@ -1,8 +1,13 @@
 package re.forestier.edu;
 
 import org.junit.jupiter.api.*;
+
+import re.forestier.edu.rpg.Affichage;
 import re.forestier.edu.rpg.UpdatePlayer;
 import re.forestier.edu.rpg.player;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -14,14 +19,27 @@ public class UpdatePlayerTest {
 
     private player player1; // ADVENTURER
 
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
     @BeforeEach
-    void setUp() {
+    void setUpPlayer() {
         player1 = new player(
                 "Florian",
                 "Grognak le barbare",
                 "ADVENTURER",
                 100,
                 new ArrayList<>());
+    }
+
+    @BeforeEach
+    public void setUpOutputStream() {
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    @AfterEach
+    public void restoreSystemOut() {
+        System.setOut(originalOut);
     }
 
     private player createPlayer(String type) {
@@ -150,8 +168,11 @@ public class UpdatePlayerTest {
         player1.currenthealthpoints = 0;
 
         UpdatePlayer.majFinDeTour(player1);
-
         assertThat(player1.currenthealthpoints, is(0));
+
+        assertThat(
+                outputStream.toString(),
+                containsString("Le joueur est KO !"));
     }
 
     @Test
