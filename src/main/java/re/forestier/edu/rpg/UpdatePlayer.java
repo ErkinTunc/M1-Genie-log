@@ -5,7 +5,11 @@ import java.util.Random;
 
 public class UpdatePlayer {
 
-    private final static String[] objectList = {"Lookout Ring : Prevents surprise attacks","Scroll of Stupidity : INT-2 when applied to an enemy", "Draupnir : Increases XP gained by 100%", "Magic Charm : Magic +10 for 5 rounds", "Rune Staff of Curse : May burn your ennemies... Or yourself. Who knows?", "Combat Edge : Well, that's an edge", "Holy Elixir : Recover your HP"
+    private final static String[] objectList = { "Lookout Ring : Prevents surprise attacks",
+            "Scroll of Stupidity : INT-2 when applied to an enemy", "Draupnir : Increases XP gained by 100%",
+            "Magic Charm : Magic +10 for 5 rounds",
+            "Rune Staff of Curse : May burn your ennemies... Or yourself. Who knows?",
+            "Combat Edge : Well, that's an edge", "Holy Elixir : Recover your HP"
     };
 
     public static HashMap<String, HashMap<Integer, HashMap<String, Integer>>> abilitiesPerTypeAndLevel() {
@@ -40,7 +44,6 @@ public class UpdatePlayer {
 
         abilitiesPerTypeAndLevel.put("ADVENTURER", adventurerMap);
 
-
         HashMap<Integer, HashMap<String, Integer>> archerMap = new HashMap<>();
         HashMap<String, Integer> archerLevel1 = new HashMap<>();
         archerLevel1.put("INT", 1);
@@ -67,7 +70,6 @@ public class UpdatePlayer {
         archerMap.put(5, archerLevel5);
 
         abilitiesPerTypeAndLevel.put("ARCHER", archerMap);
-
 
         HashMap<Integer, HashMap<String, Integer>> dwarf = new HashMap<>();
         HashMap<String, Integer> dwarfLevel1 = new HashMap<>();
@@ -122,44 +124,42 @@ public class UpdatePlayer {
 
     // majFinDeTour met à jour les points de vie
     public static void majFinDeTour(player player) {
-        if(player.currenthealthpoints == 0) {
+        if (player.currenthealthpoints == 0) {
             System.out.println("Le joueur est KO !");
             return;
         }
 
-        if(player.currenthealthpoints < player.healthpoints/2) {
-            if(!player.getAvatarClass().equals("ADVENTURER")) {
-                if(player.getAvatarClass().equals("DWARF")) {
-                    if(player.inventory.contains("Holy Elixir")) {
-                        player.currenthealthpoints+=1;
+        if (player.currenthealthpoints < player.healthpoints / 2) {
+            if (!player.getAvatarClass().equals("ADVENTURER")) {
+                if (player.getAvatarClass().equals("DWARF")) {
+                    if (player.inventory.contains("Holy Elixir")) {
+                        player.currenthealthpoints += 1;
                     }
-                    player.currenthealthpoints+=1;
-                } else if(player.getAvatarClass().equals("ADVENTURER")) {
-                    player.currenthealthpoints+=2;
+                    player.currenthealthpoints += 1;
+                } else if (player.getAvatarClass().equals("ADVENTURER")) {
+                    player.currenthealthpoints += 2;
                 }
 
-
-                if(player.getAvatarClass().equals("ARCHER")) {
-                    player.currenthealthpoints+=1;
-                    if(player.inventory.contains("Magic Bow")) {
-                        player.currenthealthpoints+=player.currenthealthpoints/8-1;
+                if (player.getAvatarClass().equals("ARCHER")) {
+                    player.currenthealthpoints += 1;
+                    if (player.inventory.contains("Magic Bow")) {
+                        player.currenthealthpoints += player.currenthealthpoints / 8 - 1;
                     }
                 }
             } else {
-                player.currenthealthpoints+=2;
-                if(player.retrieveLevel() < 3) {
-                    player.currenthealthpoints-=1;
+                player.currenthealthpoints += 2;
+                if (player.retrieveLevel() < 3) {
+                    player.currenthealthpoints -= 1;
                 }
             }
-        } else if(player.currenthealthpoints >= player.healthpoints/2){
-            if(player.currenthealthpoints >= player.healthpoints) {
+        } else if (player.currenthealthpoints >= player.healthpoints / 2) {
+            if (player.currenthealthpoints >= player.healthpoints) {
                 player.currenthealthpoints = player.healthpoints;
                 return;
             }
         }
 
-
-        if(player.currenthealthpoints >= player.healthpoints) {
+        if (player.currenthealthpoints >= player.healthpoints) {
             player.currenthealthpoints = player.healthpoints;
         }
     }
