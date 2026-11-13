@@ -33,7 +33,7 @@ public class PlayerTest {
 
     @Test
     void testAvatarName() {
-        assertThat(player1.Avatar_name, is("Grognak le barbare"));
+        assertThat(player1.avatarName, is("Grognak le barbare"));
     }
 
     @Test
@@ -42,8 +42,8 @@ public class PlayerTest {
     }
 
     @Test
-    void testPlayerMoney() {
-        assertThat(player1.money, is(100));
+    void testPlayerGameMoney() {
+        assertThat(player1.gameMoney, is(100));
     }
 
     @Test
@@ -65,21 +65,21 @@ public class PlayerTest {
     // Initial money = 100
 
     @Test
-    void testAddMoneyPositive() {
-        player1.addMoney(200);
-        assertThat(player1.money, is(300));
+    void testAddGameMoneyPositive() {
+        player1.addGameMoney(200);
+        assertThat(player1.gameMoney, is(300));
     }
 
     @Test
-    void testAddMoneyZero() {
-        player1.addMoney(0);
-        assertThat(player1.money, is(100));
+    void testAddGameMoneyZero() {
+        player1.addGameMoney(0);
+        assertThat(player1.gameMoney, is(100));
     }
 
     @Test
-    void testAddMoneyNegative() {
-        player1.addMoney(-5);
-        assertThat(player1.money, is(95));
+    void testAddGameMoneyNegative() {
+        player1.addGameMoney(-5);
+        assertThat(player1.gameMoney, is(95));
     }
 
     // --------------- Player - removeMoney() -------------------
@@ -87,37 +87,37 @@ public class PlayerTest {
     // Initial money = 100
 
     @Test
-    void testRemoveMoneyPositive() {
-        player1.removeMoney(50);
-        assertThat(player1.money, is(50));
+    void testRemoveGameMoneyPositive() {
+        player1.removeGameMoney(50);
+        assertThat(player1.gameMoney, is(50));
     }
 
     @Test
     void testRemoveMoneyZero() {
-        player1.removeMoney(0);
-        assertThat(player1.money, is(100));
+        player1.removeGameMoney(0);
+        assertThat(player1.gameMoney, is(100));
     }
 
     @Test
-    void testRemoveMoneyNegative() {
-        player1.removeMoney(-5);
-        assertThat(player1.money, is(105));
+    void testRemoveGameMoneyNegative() {
+        player1.removeGameMoney(-5);
+        assertThat(player1.gameMoney, is(105));
     }
 
     @Test
-    void testRemoveMoneyExactBalance() {
-        player1.removeMoney(100);
-        assertThat(player1.money, is(0));
+    void testRemoveGameMoneyExactBalance() {
+        player1.removeGameMoney(100);
+        assertThat(player1.gameMoney, is(0));
     }
 
     @Test
     @DisplayName("Impossible to have negative money")
-    void testRemoveMoneyInsufficient() {
+    void testRemoveGameMoneyInsufficient() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> player1.removeMoney(101));
+                () -> player1.removeGameMoney(101));
 
-        assertThat(player1.money, is(100));
+        assertThat(player1.gameMoney, is(100));
     }
 
     // -------------- Retrieve Level -----------------------
@@ -133,7 +133,7 @@ public class PlayerTest {
 
     private void checkLevel(int xpToAdd, int expectedLevel) {
         UpdatePlayer.addXp(player1, xpToAdd);
-        assertThat(player1.retrieveLevel(), is(expectedLevel));
+        assertThat(player1.getLevel(), is(expectedLevel));
     }
 
     // Boundary: 10 XP

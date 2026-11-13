@@ -5,51 +5,51 @@ import java.util.HashMap;
 
 public class player {
     public String playerName;
-    public String Avatar_name;
-    private String AvatarClass;
+    public String avatarName;
+    private String avatarClass;
 
-    public Integer money;
-    private Float __real_money__;
+    public Integer gameMoney;
+    private Float realMoney;
 
     public int level;
-    public int healthpoints;
-    public int currenthealthpoints;
+    public int maxHealthPoints;
+    public int currentHealthPoints;
     protected int xp;
 
     public HashMap<String, Integer> abilities;
     public ArrayList<String> inventory;
 
-    public player(String playerName, String avatar_name, String avatarClass, int money, ArrayList<String> inventory) {
+    public player(String playerName, String avatarName, String avatarClass, int money, ArrayList<String> inventory) {
         if (!avatarClass.equals("ARCHER") && !avatarClass.equals("ADVENTURER") && !avatarClass.equals("DWARF")) {
             return;
         }
 
         this.playerName = playerName;
-        Avatar_name = avatar_name;
-        AvatarClass = avatarClass;
-        this.money = Integer.valueOf(money);
+        this.avatarName = avatarName;
+        this.avatarClass = avatarClass;
+        this.gameMoney = Integer.valueOf(money);
         this.inventory = inventory;
-        this.abilities = UpdatePlayer.abilitiesPerTypeAndLevel().get(AvatarClass).get(1);
+        this.abilities = UpdatePlayer.abilitiesPerTypeAndLevel().get(avatarClass).get(1);
     }
 
     public String getAvatarClass() {
-        return AvatarClass;
+        return avatarClass;
     }
 
-    public void removeMoney(int amount) throws IllegalArgumentException {
-        if (money - amount < 0) {
+    public void removeGameMoney(int amount) throws IllegalArgumentException {
+        if (gameMoney - amount < 0) {
             throw new IllegalArgumentException("Player can't have a negative money!");
         }
 
-        money = Integer.parseInt(money.toString()) - amount;
+        gameMoney = Integer.parseInt(gameMoney.toString()) - amount;
     }
 
-    public void addMoney(int amount) {
+    public void addGameMoney(int amount) {
         var value = Integer.valueOf(amount);
-        money = money + (value != null ? value : 0);
+        gameMoney = gameMoney + (value != null ? value : 0);
     }
 
-    public int retrieveLevel() {
+    public int getLevel() {
         // (lvl-1) * 10 + round((lvl * xplvl-1)/4)
         HashMap<Integer, Integer> levels = new HashMap<>();
         levels.put(2, 10); // 1*10 + ((2*0)/4)

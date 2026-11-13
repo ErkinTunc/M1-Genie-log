@@ -47,8 +47,8 @@ public class UpdatePlayerTest {
                 "Florian", "Grognak le barbare",
                 type, 100, new ArrayList<>());
 
-        player.healthpoints = 100;
-        player.currenthealthpoints = 40;
+        player.maxHealthPoints = 100;
+        player.currentHealthPoints = 40;
 
         return player;
     }
@@ -127,7 +127,7 @@ public class UpdatePlayerTest {
         boolean result = UpdatePlayer.addXp(player1, 5);
 
         assertThat(player1.getXp(), is(5));
-        assertThat(player1.retrieveLevel(), is(1));
+        assertThat(player1.getLevel(), is(1));
         assertThat(result, is(false));
     }
 
@@ -136,7 +136,7 @@ public class UpdatePlayerTest {
         boolean result = UpdatePlayer.addXp(player1, 10);
 
         assertThat(player1.getXp(), is(10));
-        assertThat(player1.retrieveLevel(), is(2));
+        assertThat(player1.getLevel(), is(2));
         assertThat(result, is(true));
         assertThat(player1.inventory.size(), is(1)); // Add a random item
     }
@@ -145,7 +145,7 @@ public class UpdatePlayerTest {
     void testAddXpUpdatesAbilities() {
         UpdatePlayer.addXp(player1, 27);
 
-        assertThat(player1.retrieveLevel(), is(3));
+        assertThat(player1.getLevel(), is(3));
         assertThat(player1.abilities.get("ATK"), is(5));
         assertThat(player1.abilities.get("ALC"), is(1));
     }
@@ -155,7 +155,7 @@ public class UpdatePlayerTest {
         boolean result = UpdatePlayer.addXp(player1, 57);
 
         assertThat(result, is(true));
-        assertThat(player1.retrieveLevel(), is(4));
+        assertThat(player1.getLevel(), is(4));
         assertThat(player1.inventory.size(), is(1));
         assertThat(player1.abilities.get("DEF"), is(3));
     }
@@ -164,11 +164,11 @@ public class UpdatePlayerTest {
 
     @Test
     void testPlayerKO() {
-        player1.healthpoints = 100;
-        player1.currenthealthpoints = 0;
+        player1.maxHealthPoints = 100;
+        player1.currentHealthPoints = 0;
 
-        UpdatePlayer.majFinDeTour(player1);
-        assertThat(player1.currenthealthpoints, is(0));
+        UpdatePlayer.updateHealthAtEndOfTurn(player1);
+        assertThat(player1.currentHealthPoints, is(0));
 
         assertThat(
                 outputStream.toString(),
@@ -177,45 +177,45 @@ public class UpdatePlayerTest {
 
     @Test
     void testHealthBelowHalf() {
-        player1.healthpoints = 100;
-        player1.currenthealthpoints = 40;
+        player1.maxHealthPoints = 100;
+        player1.currentHealthPoints = 40;
 
-        UpdatePlayer.majFinDeTour(player1);
+        UpdatePlayer.updateHealthAtEndOfTurn(player1);
 
-        assertThat(player1.currenthealthpoints, is(41)); // player1 starts with Level1
+        assertThat(player1.currentHealthPoints, is(41)); // player1 starts with Level1
         // 40 + 2 - 1 = 41
     }
 
     @Test
     void testHealthExactlyHalf() {
-        player1.healthpoints = 100;
-        player1.currenthealthpoints = 50;
+        player1.maxHealthPoints = 100;
+        player1.currentHealthPoints = 50;
 
-        UpdatePlayer.majFinDeTour(player1);
+        UpdatePlayer.updateHealthAtEndOfTurn(player1);
 
-        assertThat(player1.currenthealthpoints, is(50));
+        assertThat(player1.currentHealthPoints, is(50));
     }
 
     @Test
     void testHealthAboveMaximum() {
-        player1.healthpoints = 100;
-        player1.currenthealthpoints = 120;
+        player1.maxHealthPoints = 100;
+        player1.currentHealthPoints = 120;
 
-        UpdatePlayer.majFinDeTour(player1);
+        UpdatePlayer.updateHealthAtEndOfTurn(player1);
 
-        assertThat(player1.currenthealthpoints, is(100));
+        assertThat(player1.currentHealthPoints, is(100));
     }
 
     // --- Adventurer ---
     @Test
     void testAdventurerLevel3Healing() {
-        player1.healthpoints = 100;
-        player1.currenthealthpoints = 40;
+        player1.maxHealthPoints = 100;
+        player1.currentHealthPoints = 40;
 
         UpdatePlayer.addXp(player1, 27);
-        UpdatePlayer.majFinDeTour(player1);
+        UpdatePlayer.updateHealthAtEndOfTurn(player1);
 
-        assertThat(player1.currenthealthpoints, is(42));
+        assertThat(player1.currentHealthPoints, is(42));
     }
 
     // --- Dwarf ---
@@ -223,9 +223,9 @@ public class UpdatePlayerTest {
     void testDwarfHealing() {
         player player = createPlayer("DWARF");
 
-        UpdatePlayer.majFinDeTour(player);
+        UpdatePlayer.updateHealthAtEndOfTurn(player);
 
-        assertThat(player.currenthealthpoints, is(41));
+        assertThat(player.currentHealthPoints, is(41));
     }
 
     @Test
@@ -233,9 +233,9 @@ public class UpdatePlayerTest {
         player player = createPlayer("DWARF");
         player.inventory.add("Holy Elixir");
 
-        UpdatePlayer.majFinDeTour(player);
+        UpdatePlayer.updateHealthAtEndOfTurn(player);
 
-        assertThat(player.currenthealthpoints, is(42));
+        assertThat(player.currentHealthPoints, is(42));
     }
 
     // --- Archer ---
@@ -243,9 +243,9 @@ public class UpdatePlayerTest {
     void testArcherHealing() {
         player player = createPlayer("ARCHER");
 
-        UpdatePlayer.majFinDeTour(player);
+        UpdatePlayer.updateHealthAtEndOfTurn(player);
 
-        assertThat(player.currenthealthpoints, is(41));
+        assertThat(player.currentHealthPoints, is(41));
     }
 
     @Test
@@ -253,9 +253,9 @@ public class UpdatePlayerTest {
         player player = createPlayer("ARCHER");
         player.inventory.add("Magic Bow");
 
-        UpdatePlayer.majFinDeTour(player);
+        UpdatePlayer.updateHealthAtEndOfTurn(player);
 
-        assertThat(player.currenthealthpoints, is(45));
+        assertThat(player.currentHealthPoints, is(45));
     }
 
     // ----------- Invalid Health State -----------
@@ -264,11 +264,11 @@ public class UpdatePlayerTest {
     void testInvalidHealthState() {
         UpdatePlayer.addXp(player1, 27);
 
-        player1.healthpoints = 0;
-        player1.currenthealthpoints = -1;
+        player1.maxHealthPoints = 0;
+        player1.currentHealthPoints = -1;
 
-        UpdatePlayer.majFinDeTour(player1);
+        UpdatePlayer.updateHealthAtEndOfTurn(player1);
 
-        assertThat(player1.currenthealthpoints, is(0));
+        assertThat(player1.currentHealthPoints, is(0));
     }
 }

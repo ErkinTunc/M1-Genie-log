@@ -26,6 +26,6 @@ public class GlobalTest {
         UpdatePlayer.addXp(player1, 20);
         player1.inventory = new ArrayList<>();
 
-        verify(Affichage.afficherJoueur(player1));
+        verify(Affichage.getPlayerSummary(player1));
     }
 }

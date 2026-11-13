@@ -28,7 +28,7 @@ public class AffichageTest {
 
     @Test
     void testPlayerInformation() {
-        String result = Affichage.afficherJoueur(player1);
+        String result = Affichage.getPlayerSummary(player1);
 
         assertThat(result, containsString(
                 "Joueur Grognak le barbare joué par Florian"));
@@ -40,7 +40,7 @@ public class AffichageTest {
     void testLevelAndXp() {
         UpdatePlayer.addXp(player1, 5);
 
-        String result = Affichage.afficherJoueur(player1);
+        String result = Affichage.getPlayerSummary(player1);
 
         assertThat(result, containsString(
                 "Niveau : 1 (XP totale : 5)"));
@@ -50,7 +50,7 @@ public class AffichageTest {
 
     @Test
     void testAbilities() {
-        String result = Affichage.afficherJoueur(player1);
+        String result = Affichage.getPlayerSummary(player1);
 
         assertThat(result, containsString("Capacités :"));
         assertThat(result, containsString("INT : 2"));
@@ -63,7 +63,7 @@ public class AffichageTest {
 
     @Test
     void testEmptyInventory() {
-        String result = Affichage.afficherJoueur(player1);
+        String result = Affichage.getPlayerSummary(player1);
 
         assertThat(result, endsWith("Inventaire :"));
     }
@@ -75,7 +75,7 @@ public class AffichageTest {
         player1.inventory.add("Magic Bow");
         player1.inventory.add("Holy Elixir");
 
-        String result = Affichage.afficherJoueur(player1);
+        String result = Affichage.getPlayerSummary(player1);
 
         assertThat(result, containsString("Magic Bow"));
         assertThat(result, containsString("Holy Elixir"));
