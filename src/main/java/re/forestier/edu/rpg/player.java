@@ -19,7 +19,7 @@ public class player {
     public HashMap<String, Integer> abilities;
     public ArrayList<String> inventory;
 
-    // ----------- Constructor  ----------------
+    // ----------- Constructor ----------------
 
     public player(String playerName, String avatarName, String avatarClass, int money, ArrayList<String> inventory) {
         if (!avatarClass.equals("ARCHER") && !avatarClass.equals("ADVENTURER") && !avatarClass.equals("DWARF")) {
@@ -80,16 +80,5 @@ public class player {
     public int getXp() {
         return this.xp;
     }
-
-    /*
-     * Ингредиенты:
-     * Для теста:
-     * 
-     * 250 г муки
-     * 125 г сливочного масла (холодное)
-     * 70 г сахара
-     * 1 яйцо
-     * 1 щепотка соли
-     */
 
 }
