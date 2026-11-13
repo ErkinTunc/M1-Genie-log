@@ -19,6 +19,8 @@ public class player {
     public HashMap<String, Integer> abilities;
     public ArrayList<String> inventory;
 
+    // ----------- Constructor  ----------------
+
     public player(String playerName, String avatarName, String avatarClass, int money, ArrayList<String> inventory) {
         if (!avatarClass.equals("ARCHER") && !avatarClass.equals("ADVENTURER") && !avatarClass.equals("DWARF")) {
             return;
@@ -32,9 +34,7 @@ public class player {
         this.abilities = UpdatePlayer.abilitiesPerTypeAndLevel().get(avatarClass).get(1);
     }
 
-    public String getAvatarClass() {
-        return avatarClass;
-    }
+    // ----------- Methods ----------------
 
     public void removeGameMoney(int amount) throws IllegalArgumentException {
         if (gameMoney - amount < 0) {
@@ -47,6 +47,12 @@ public class player {
     public void addGameMoney(int amount) {
         var value = Integer.valueOf(amount);
         gameMoney = gameMoney + (value != null ? value : 0);
+    }
+
+    // ----------- Getters ----------------
+
+    public String getAvatarClass() {
+        return avatarClass;
     }
 
     public int getLevel() {
