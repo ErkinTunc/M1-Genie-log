@@ -3,7 +3,7 @@ package re.forestier.edu;
 import org.junit.jupiter.api.*;
 import re.forestier.edu.rpg.Affichage;
 import re.forestier.edu.rpg.UpdatePlayer;
-import re.forestier.edu.rpg.player;
+import re.forestier.edu.rpg.Player;
 
 import java.util.ArrayList;
 
@@ -12,11 +12,11 @@ import static org.hamcrest.Matchers.*;
 
 public class AffichageTest {
 
-    private player player1;
+    private Player player1;
 
     @BeforeEach
     void setUp() {
-        player1 = new player(
+        player1 = new Player(
                 "Florian",
                 "Grognak le barbare",
                 "ADVENTURER",

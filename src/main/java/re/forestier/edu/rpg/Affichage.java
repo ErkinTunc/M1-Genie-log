@@ -2,7 +2,7 @@ package re.forestier.edu.rpg;
 
 public class Affichage {
 
-    public static String getPlayerSummary(player player) {
+    public static String getPlayerSummary(Player player) {
 
         final String[] playerDescription = { "Joueur " + player.avatarName + " joué par " + player.playerName };
         

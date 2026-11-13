@@ -3,7 +3,7 @@ package re.forestier.edu.rpg;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class player {
+public class Player {
     public String playerName;
     public String avatarName;
     private String avatarClass;
@@ -21,7 +21,7 @@ public class player {
 
     // ----------- Constructor ----------------
 
-    public player(String playerName, String avatarName, String avatarClass, int money, ArrayList<String> inventory) {
+    public Player(String playerName, String avatarName, String avatarClass, int money, ArrayList<String> inventory) {
         if (!avatarClass.equals("ARCHER") && !avatarClass.equals("ADVENTURER") && !avatarClass.equals("DWARF")) {
             return;
         }

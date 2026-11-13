@@ -3,7 +3,7 @@ package re.forestier.edu;
 import org.junit.jupiter.api.*;
 
 import re.forestier.edu.rpg.UpdatePlayer;
-import re.forestier.edu.rpg.player;
+import re.forestier.edu.rpg.Player;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13,11 +13,11 @@ import java.util.ArrayList;
 
 public class PlayerTest {
 
-    private player player1;
+    private Player player1;
 
     @BeforeEach
     void setUp() {
-        this.player1 = new player(
+        this.player1 = new Player(
                 "Florian",
                 "Grognak le barbare",
                 "ADVENTURER",
@@ -53,7 +53,7 @@ public class PlayerTest {
 
     @Test
     void testInvalidAvatarClass() {
-        player player = new player(
+        Player player = new Player(
                 "Florian", "Hero", "MAGE",
                 100, new ArrayList<>());
 

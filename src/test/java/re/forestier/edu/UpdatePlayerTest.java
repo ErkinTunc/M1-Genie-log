@@ -4,7 +4,7 @@ import org.junit.jupiter.api.*;
 
 import re.forestier.edu.rpg.Affichage;
 import re.forestier.edu.rpg.UpdatePlayer;
-import re.forestier.edu.rpg.player;
+import re.forestier.edu.rpg.Player;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -17,14 +17,14 @@ import static org.hamcrest.Matchers.*;
 
 public class UpdatePlayerTest {
 
-    private player player1; // ADVENTURER
+    private Player player1; // ADVENTURER
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
     @BeforeEach
     void setUpPlayer() {
-        player1 = new player(
+        player1 = new Player(
                 "Florian",
                 "Grognak le barbare",
                 "ADVENTURER",
@@ -42,8 +42,8 @@ public class UpdatePlayerTest {
         System.setOut(originalOut);
     }
 
-    private player createPlayer(String type) {
-        player player = new player(
+    private Player createPlayer(String type) {
+        Player player = new Player(
                 "Florian", "Grognak le barbare",
                 type, 100, new ArrayList<>());
 
@@ -221,7 +221,7 @@ public class UpdatePlayerTest {
     // --- Dwarf ---
     @Test
     void testDwarfHealing() {
-        player player = createPlayer("DWARF");
+        Player player = createPlayer("DWARF");
 
         UpdatePlayer.updateHealthAtEndOfTurn(player);
 
@@ -230,7 +230,7 @@ public class UpdatePlayerTest {
 
     @Test
     void testDwarfWithHolyElixir() {
-        player player = createPlayer("DWARF");
+        Player player = createPlayer("DWARF");
         player.inventory.add("Holy Elixir");
 
         UpdatePlayer.updateHealthAtEndOfTurn(player);
@@ -241,7 +241,7 @@ public class UpdatePlayerTest {
     // --- Archer ---
     @Test
     void testArcherHealing() {
-        player player = createPlayer("ARCHER");
+        Player player = createPlayer("ARCHER");
 
         UpdatePlayer.updateHealthAtEndOfTurn(player);
 
@@ -250,7 +250,7 @@ public class UpdatePlayerTest {
 
     @Test
     void testArcherWithMagicBow() {
-        player player = createPlayer("ARCHER");
+        Player player = createPlayer("ARCHER");
         player.inventory.add("Magic Bow");
 
         UpdatePlayer.updateHealthAtEndOfTurn(player);

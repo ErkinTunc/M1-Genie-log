@@ -104,7 +104,7 @@ public class UpdatePlayer {
         return abilitiesPerTypeAndLevel;
     }
 
-    public static boolean addXp(player player, int xp) {
+    public static boolean addXp(Player player, int xp) {
         int currentLevel = player.getLevel();
         player.xp += xp;
         int newLevel = player.getLevel();
@@ -127,7 +127,7 @@ public class UpdatePlayer {
     }
 
     // updateHealthAtEndOfTurn met à jour les points de vie
-    public static void updateHealthAtEndOfTurn(player player) {
+    public static void updateHealthAtEndOfTurn(Player player) {
         if (player.currentHealthPoints == 0) {
             System.out.println("Le joueur est KO !");
             return;

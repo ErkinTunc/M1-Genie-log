@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import re.forestier.edu.rpg.Affichage;
 import re.forestier.edu.rpg.UpdatePlayer;
-import re.forestier.edu.rpg.player;
+import re.forestier.edu.rpg.Player;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class GlobalTest {
 
     @Test
     void testAffichageBase() {
-        player player1 = new player(
+        Player player1 = new Player(
             "Florian", "Gnognak le Barbare",
              "ADVENTURER", 200, new ArrayList<>());
 
