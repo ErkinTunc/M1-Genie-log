@@ -114,7 +114,7 @@ public class UpdatePlayer {
             // Give a random object
             ;
             Random random = new Random();
-            player.inventory.add(AVAILABLE_ITEMS[random.nextInt(AVAILABLE_ITEMS.length - 0) + 0]);
+            player.inventory.add(AVAILABLE_ITEMS[random.nextInt(AVAILABLE_ITEMS.length)]);
 
             // Add/upgrade abilities to player
             HashMap<String, Integer> abilities = abilitiesPerTypeAndLevel().get(player.getAvatarClass()).get(newLevel);
