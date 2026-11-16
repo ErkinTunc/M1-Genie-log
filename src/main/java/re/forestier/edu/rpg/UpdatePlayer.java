@@ -105,26 +105,37 @@ public class UpdatePlayer {
     }
 
     public static boolean addXp(Player player, int xp) {
+
         int currentLevel = player.getLevel();
         player.xp += xp;
         int newLevel = player.getLevel();
 
         if (newLevel != currentLevel) {
             // Player leveled-up!
-            // Give a random object
-            ;
-            Random random = new Random();
-            player.inventory.add(AVAILABLE_ITEMS[random.nextInt(AVAILABLE_ITEMS.length)]);
-
-            // Add/upgrade abilities to player
-            HashMap<String, Integer> abilities = abilitiesPerTypeAndLevel().get(player.getAvatarClass()).get(newLevel);
-            abilities.forEach((ability, level) -> {
-                player.abilities.put(ability, abilities.get(ability));
-            });
+            giveRandomItem(player);
+            updateAbilities(player, newLevel);
             return true;
         }
         return false;
     }
+
+    // --------- Sub-Methos --------------
+
+    private static void giveRandomItem(Player player) {
+        Random random = new Random();
+        player.inventory.add(AVAILABLE_ITEMS[random.nextInt(AVAILABLE_ITEMS.length)]);
+    }
+
+    private static void updateAbilities(Player player, int newLevel) {
+        HashMap<String, Integer> abilities = abilitiesPerTypeAndLevel()
+                .get(player.getAvatarClass())
+                .get(newLevel);
+        abilities.forEach((ability, level) -> {
+            player.abilities.put(ability, abilities.get(ability));
+        });
+    }
+
+    // -----------------------------------
 
     public static void updateHealthAtEndOfTurn(Player player) {
 
@@ -136,7 +147,7 @@ public class UpdatePlayer {
         capHealthToMaximum(player);
     }
 
-    // -------- Sub-Functions ----------
+    // -------- Sub-Methods -------------
 
     private static boolean isPlayerKO(Player player) {
         if (player.currentHealthPoints == 0) {
