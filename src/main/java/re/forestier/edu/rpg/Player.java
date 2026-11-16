@@ -21,10 +21,14 @@ public class Player {
 
     // ----------- Constructor ----------------
 
-    public Player(String playerName, String avatarName, String avatarClass, int gameMoney, ArrayList<String> inventory) {
-        if (!avatarClass.equals("ARCHER") &&
-                !avatarClass.equals("ADVENTURER") &&
-                !avatarClass.equals("DWARF")) {
+    public Player(
+            String playerName,
+            String avatarName,
+            String avatarClass,
+            int gameMoney,
+            ArrayList<String> inventory) {
+
+        if (!isValidAvatarClass(avatarClass)) {
             return;
         }
 
@@ -34,6 +38,12 @@ public class Player {
         this.gameMoney = gameMoney;
         this.inventory = inventory;
         this.abilities = UpdatePlayer.abilitiesPerTypeAndLevel().get(avatarClass).get(1);
+    }
+
+    private static boolean isValidAvatarClass(String avatarClass) {
+        return avatarClass.equals("ARCHER")
+                || avatarClass.equals("ADVENTURER")
+                || avatarClass.equals("DWARF");
     }
 
     // ----------- Methods ----------------
