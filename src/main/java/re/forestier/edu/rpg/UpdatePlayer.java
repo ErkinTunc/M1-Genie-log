@@ -89,7 +89,8 @@ public class UpdatePlayer {
 
     // ------------ Getters ----------------
 
-    public static HashMap<String, Integer> getInitialAbilities(String avatarClass) {
-        return abilitiesPerTypeAndLevel().get(avatarClass).get(1);
+    public static HashMap<String, Integer> getInitialAbilities(
+            String avatarClass) {
+        return CharacterRules.getInitialAbilities(avatarClass);
     }
 }
