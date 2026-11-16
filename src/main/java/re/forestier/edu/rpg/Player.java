@@ -37,7 +37,7 @@ public class Player {
         this.avatarClass = avatarClass;
         this.gameMoney = gameMoney;
         this.inventory = inventory;
-        this.abilities = UpdatePlayer.abilitiesPerTypeAndLevel().get(avatarClass).get(1);
+        this.abilities = UpdatePlayer.getInitialAbilities(avatarClass);
     }
 
     private static boolean isValidAvatarClass(String avatarClass) {
@@ -53,7 +53,7 @@ public class Player {
             throw new IllegalArgumentException("Player can't have a negative money!");
         }
 
-        gameMoney = Integer.parseInt(gameMoney.toString()) - amount;
+        gameMoney = gameMoney - amount;
     }
 
     public void addGameMoney(int amount) {

@@ -226,4 +226,10 @@ public class UpdatePlayer {
             player.currentHealthPoints = player.maxHealthPoints;
         }
     }
+
+    // ------------ Getters ----------------
+    
+    public static HashMap<String, Integer> getInitialAbilities(String avatarClass) {
+        return abilitiesPerTypeAndLevel().get(avatarClass).get(1);
+    }
 }
