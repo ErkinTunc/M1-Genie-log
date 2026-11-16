@@ -67,37 +67,30 @@ public class Player {
     }
 
     public int getLevel() {
-
-        HashMap<Integer, Integer> levels = createLevelThresholds();
-
-        if (xp < levels.get(2)) {
-            return 1;
-        } else if (xp < levels.get(3)) {
-            return 2;
+        int maxLevel = 5;
+        for (int level = 2; level <= maxLevel; level++) {
+            if (xp < calculateXpThreshold(level)) {
+                return level - 1;
+            }
         }
-        if (xp < levels.get(4)) {
-            return 3;
-        }
-        if (xp < levels.get(5))
-            return 4;
-        return 5;
+        // TODO : ajouter les prochains niveaux
+
+        return maxLevel;
     }
 
-    // -------- Sub-Methods ------------
+    // ----------- Sub-Methods ---------------
 
-    private static HashMap<Integer, Integer> createLevelThresholds() {
-        HashMap<Integer, Integer> levels = new HashMap<>();
-
+    private static int calculateXpThreshold(int level) {
         // XP threshold formula (integer division):
         // XP(n) = (n - 1) * 10 + (n * XP(n - 1)) / 4
+        int threshold = 0;
 
-        levels.put(2, 10);
-        levels.put(3, 27);
-        levels.put(4, 57);
-        levels.put(5, 111);
+        for (int i = 2; i <= level; i++) {
+            threshold = (i - 1) * 10
+                    + (i * threshold) / 4;
+        }
 
-        // TODO : ajouter les prochains niveaux
-        return levels;
+        return threshold;
     }
 
     // --------------------------------
