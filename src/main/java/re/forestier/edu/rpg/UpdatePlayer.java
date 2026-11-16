@@ -150,8 +150,9 @@ public class UpdatePlayer {
         HashMap<String, Integer> abilities = abilitiesPerTypeAndLevel()
                 .get(player.getAvatarClass())
                 .get(newLevel);
+
         abilities.forEach((ability, level) -> {
-            player.abilities.put(ability, abilities.get(ability));
+            player.abilities.put(ability, level);
         });
     }
 
