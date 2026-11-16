@@ -155,6 +155,13 @@ public class CharacterRules {
                 .get(level);
     }
 
+    // package-private method
+    static boolean isValidAvatarClass(String avatarClass) {
+        return avatarClass.equals("ARCHER")
+                || avatarClass.equals("ADVENTURER")
+                || avatarClass.equals("DWARF");
+    }
+
     // ------------ Getters ----------------
 
     // package-private method

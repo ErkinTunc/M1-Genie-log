@@ -28,7 +28,7 @@ public class Player {
             int gameMoney,
             ArrayList<String> inventory) {
 
-        if (!isValidAvatarClass(avatarClass)) {
+        if (!CharacterRules.isValidAvatarClass(avatarClass)) {
             return;
         }
 
@@ -38,12 +38,6 @@ public class Player {
         this.gameMoney = gameMoney;
         this.inventory = inventory;
         this.abilities = CharacterRules.getInitialAbilities(avatarClass);
-    }
-
-    private static boolean isValidAvatarClass(String avatarClass) {
-        return avatarClass.equals("ARCHER")
-                || avatarClass.equals("ADVENTURER")
-                || avatarClass.equals("DWARF");
     }
 
     // ----------- Methods ----------------
