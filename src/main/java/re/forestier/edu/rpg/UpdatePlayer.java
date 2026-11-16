@@ -41,7 +41,8 @@ public class UpdatePlayer {
 
     public static void updateHealthAtEndOfTurn(Player player) {
 
-        if (isPlayerKO(player)) {
+        if (player.currentHealthPoints == 0) {
+            System.out.println("Le joueur est KO !");
             return;
         }
 
@@ -64,14 +65,6 @@ public class UpdatePlayer {
     }
 
     // --------------- Health helpers -------------------
-
-    private static boolean isPlayerKO(Player player) {
-        if (player.currentHealthPoints == 0) {
-            System.out.println("Le joueur est KO !");
-            return true;
-        }
-        return false;
-    }
 
     private static void applyHealthRegeneration(Player player) {
         if (player.currentHealthPoints < player.maxHealthPoints / 2) {
