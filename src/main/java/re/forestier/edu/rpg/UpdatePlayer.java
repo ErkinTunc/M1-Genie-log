@@ -23,8 +23,6 @@ public class UpdatePlayer {
         return CharacterRules.abilitiesPerTypeAndLevel();
     }
 
-    
-
     public static boolean addXp(Player player, int xp) {
 
         int currentLevel = player.getLevel();
@@ -48,19 +46,11 @@ public class UpdatePlayer {
     }
 
     private static void updateAbilities(Player player, int newLevel) {
-        HashMap<String, Integer> abilities = getLevelAbilities(player.getAvatarClass(), newLevel);
+        HashMap<String, Integer> abilities = CharacterRules.getLevelAbilities(player.getAvatarClass(), newLevel);
 
         abilities.forEach((ability, level) -> {
             player.abilities.put(ability, level);
         });
-    }
-
-    private static HashMap<String, Integer> getLevelAbilities(
-            String avatarClass, int level) {
-
-        return abilitiesPerTypeAndLevel()
-                .get(avatarClass)
-                .get(level);
     }
 
     // -----------------------------------
@@ -90,7 +80,6 @@ public class UpdatePlayer {
             CharacterRules.healByAvatarClass(player);
         }
     }
-
 
     private static void capHealthToMaximum(Player player) {
         if (player.currentHealthPoints > player.maxHealthPoints) {

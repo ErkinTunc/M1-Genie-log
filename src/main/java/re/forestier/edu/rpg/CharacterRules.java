@@ -148,4 +148,13 @@ public class CharacterRules {
         }
     }
 
+    // package-private method
+    static HashMap<String, Integer> getLevelAbilities(
+            String avatarClass, int level) {
+
+        return abilitiesPerTypeAndLevel()
+                .get(avatarClass)
+                .get(level);
+    }
+
 }
