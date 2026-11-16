@@ -19,90 +19,110 @@ public class UpdatePlayer {
 
         HashMap<String, HashMap<Integer, HashMap<String, Integer>>> abilitiesPerTypeAndLevel = new HashMap<>();
 
-        HashMap<Integer, HashMap<String, Integer>> adventurerAbilitiesByLevel = new HashMap<>();
+        abilitiesPerTypeAndLevel.put("ADVENTURER", createAdventurerAbilities());
+        abilitiesPerTypeAndLevel.put("ARCHER", createArcherAbilities());
+        abilitiesPerTypeAndLevel.put("DWARF", createDwarfAbilities());
+
+        return abilitiesPerTypeAndLevel;
+    }
+
+    // --------- Sub-Methods --------------
+
+    private static HashMap<Integer, HashMap<String, Integer>> createAdventurerAbilities() {
+
+        HashMap<Integer, HashMap<String, Integer>> abilitiesByLevel = new HashMap<>();
+
         HashMap<String, Integer> adventurerLevel1 = new HashMap<>();
         adventurerLevel1.put("INT", 1);
         adventurerLevel1.put("DEF", 1);
         adventurerLevel1.put("ATK", 3);
         adventurerLevel1.put("CHA", 2);
-        adventurerAbilitiesByLevel.put(1, adventurerLevel1);
+        abilitiesByLevel.put(1, adventurerLevel1);
 
         HashMap<String, Integer> adventurerLevel2 = new HashMap<>();
-        adventurerLevel1.put("INT", 2);
-        adventurerLevel1.put("CHA", 3);
-        adventurerAbilitiesByLevel.put(2, adventurerLevel2);
+        adventurerLevel1.put("INT", 2); // FIX
+        adventurerLevel1.put("CHA", 3); // FIX
+        abilitiesByLevel.put(2, adventurerLevel2);
 
         HashMap<String, Integer> adventurerLevel3 = new HashMap<>();
         adventurerLevel3.put("ATK", 5);
         adventurerLevel3.put("ALC", 1);
-        adventurerAbilitiesByLevel.put(3, adventurerLevel3);
+        abilitiesByLevel.put(3, adventurerLevel3);
 
         HashMap<String, Integer> adventurerLevel4 = new HashMap<>();
         adventurerLevel4.put("DEF", 3);
-        adventurerAbilitiesByLevel.put(4, adventurerLevel4);
+        abilitiesByLevel.put(4, adventurerLevel4);
 
         HashMap<String, Integer> adventurerLevel5 = new HashMap<>();
         adventurerLevel5.put("VIS", 1);
         adventurerLevel5.put("DEF", 4);
-        adventurerAbilitiesByLevel.put(5, adventurerLevel5);
+        abilitiesByLevel.put(5, adventurerLevel5);
 
-        abilitiesPerTypeAndLevel.put("ADVENTURER", adventurerAbilitiesByLevel);
+        return abilitiesByLevel;
+    }
 
-        HashMap<Integer, HashMap<String, Integer>> archerAbilitiesByLevel = new HashMap<>();
+    private static HashMap<Integer, HashMap<String, Integer>> createArcherAbilities() {
+
+        HashMap<Integer, HashMap<String, Integer>> abilitiesByLevel = new HashMap<>();
+
         HashMap<String, Integer> archerLevel1 = new HashMap<>();
         archerLevel1.put("INT", 1);
         archerLevel1.put("ATK", 3);
         archerLevel1.put("CHA", 1);
         archerLevel1.put("VIS", 3);
-        archerAbilitiesByLevel.put(1, archerLevel1);
+        abilitiesByLevel.put(1, archerLevel1);
 
         HashMap<String, Integer> archerLevel2 = new HashMap<>();
         archerLevel2.put("DEF", 1);
         archerLevel2.put("CHA", 2);
-        archerAbilitiesByLevel.put(2, archerLevel2);
+        abilitiesByLevel.put(2, archerLevel2);
 
         HashMap<String, Integer> archerLevel3 = new HashMap<>();
         archerLevel3.put("ATK", 3);
-        archerAbilitiesByLevel.put(3, archerLevel3);
+        abilitiesByLevel.put(3, archerLevel3);
 
         HashMap<String, Integer> archerLevel4 = new HashMap<>();
         archerLevel4.put("DEF", 2);
-        archerAbilitiesByLevel.put(4, archerLevel4);
+        abilitiesByLevel.put(4, archerLevel4);
 
         HashMap<String, Integer> archerLevel5 = new HashMap<>();
         archerLevel5.put("ATK", 4);
-        archerAbilitiesByLevel.put(5, archerLevel5);
+        abilitiesByLevel.put(5, archerLevel5);
 
-        abilitiesPerTypeAndLevel.put("ARCHER", archerAbilitiesByLevel);
+        return abilitiesByLevel;
+    }
 
-        HashMap<Integer, HashMap<String, Integer>> dwarfAbilitiesByLevel = new HashMap<>();
+    private static HashMap<Integer, HashMap<String, Integer>> createDwarfAbilities() {
+
+        HashMap<Integer, HashMap<String, Integer>> abilitiesByLevel = new HashMap<>();
+
         HashMap<String, Integer> dwarfLevel1 = new HashMap<>();
         dwarfLevel1.put("ALC", 4);
         dwarfLevel1.put("INT", 1);
         dwarfLevel1.put("ATK", 3);
-        dwarfAbilitiesByLevel.put(1, dwarfLevel1);
+        abilitiesByLevel.put(1, dwarfLevel1);
 
         HashMap<String, Integer> dwarfLevel2 = new HashMap<>();
         dwarfLevel2.put("DEF", 1);
         dwarfLevel2.put("ALC", 5);
-        dwarfAbilitiesByLevel.put(2, dwarfLevel2);
+        abilitiesByLevel.put(2, dwarfLevel2);
 
         HashMap<String, Integer> dwarfLevel3 = new HashMap<>();
         dwarfLevel3.put("ATK", 4);
-        dwarfAbilitiesByLevel.put(3, dwarfLevel3);
+        abilitiesByLevel.put(3, dwarfLevel3);
 
         HashMap<String, Integer> dwarfLevel4 = new HashMap<>();
         dwarfLevel4.put("DEF", 2);
-        dwarfAbilitiesByLevel.put(4, dwarfLevel4);
+        abilitiesByLevel.put(4, dwarfLevel4);
 
         HashMap<String, Integer> dwarfLevel5 = new HashMap<>();
         dwarfLevel5.put("CHA", 1);
-        dwarfAbilitiesByLevel.put(5, dwarfLevel5);
+        abilitiesByLevel.put(5, dwarfLevel5);
 
-        abilitiesPerTypeAndLevel.put("DWARF", dwarfAbilitiesByLevel);
-
-        return abilitiesPerTypeAndLevel;
+        return abilitiesByLevel;
     }
+
+    // -----------------------------------
 
     public static boolean addXp(Player player, int xp) {
 
@@ -119,7 +139,7 @@ public class UpdatePlayer {
         return false;
     }
 
-    // --------- Sub-Methos --------------
+    // --------- Sub-Methods --------------
 
     private static void giveRandomItem(Player player) {
         Random random = new Random();
