@@ -4,21 +4,51 @@ public class Affichage {
 
     public static String getPlayerSummary(Player player) {
 
-        final String[] playerDescription = { "Joueur " + player.avatarName + " joué par " + player.playerName };
-        
-        playerDescription[0] += "\nNiveau : " + player.getLevel() + " (XP totale : " + player.xp + ")";
-        playerDescription[0] += "\n\nCapacités :";
-        
+        String playerDescription = "";
+
+        playerDescription += formatPlayerInfo(player);
+        playerDescription += formatAbilities(player);
+        playerDescription += formatInventory(player);
+
+        return playerDescription;
+    }
+
+    // -------- Sub-Methods -------------
+
+    private static String formatPlayerInfo(Player player) {
+        StringBuilder result = new StringBuilder();
+
+        result.append("Joueur ")
+                .append(player.avatarName)
+                .append(" joué par ")
+                .append(player.playerName);
+
+        result.append("\nNiveau : ")
+                .append(player.getLevel())
+                .append(" (XP totale : ")
+                .append(player.xp)
+                .append(")");
+
+        return result.toString();
+    }
+
+    private static String formatAbilities(Player player) {
+        StringBuilder result = new StringBuilder("\n\nCapacités :");
+
         player.abilities.forEach((name, level) -> {
-            playerDescription[0] += "\n   " + name + " : " + level;
-        });
-        
-        playerDescription[0] += "\n\nInventaire :";
-        
-        player.inventory.forEach(item -> {
-            playerDescription[0] += "\n   " + item;
+            result.append("\n   " + name + " : " + level);
         });
 
-        return playerDescription[0];
+        return result.toString();
+    }
+
+    private static String formatInventory(Player player) {
+        StringBuilder result = new StringBuilder("\n\nInventaire :");
+
+        player.inventory.forEach(item -> {
+            result.append("\n   ").append(item);
+        });
+
+        return result.toString();
     }
 }
