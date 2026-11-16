@@ -112,14 +112,12 @@ public class CharacterRules {
     }
 
     public static void healByAvatarClass(Player player) {
-        if (player.getAvatarClass().equals("ADVENTURER")) {
-            healAdventurer(player);
-
-        } else if (player.getAvatarClass().equals("DWARF")) {
-            healDwarf(player);
-
-        } else if (player.getAvatarClass().equals("ARCHER")) {
-            healArcher(player);
+        switch (player.getAvatarClass()) {
+            case "ADVENTURER" -> healAdventurer(player);
+            case "DWARF" -> healDwarf(player);
+            case "ARCHER" -> healArcher(player);
+            default -> {
+            }
         }
     }
 
