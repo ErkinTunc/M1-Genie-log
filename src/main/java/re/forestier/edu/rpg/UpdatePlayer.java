@@ -46,11 +46,10 @@ public class UpdatePlayer {
     }
 
     private static void updateAbilities(Player player, int newLevel) {
-        HashMap<String, Integer> abilities = CharacterRules.getLevelAbilities(player.getAvatarClass(), newLevel);
+        HashMap<String, Integer> abilities = CharacterRules.getLevelAbilities(
+                player.getAvatarClass(), newLevel);
 
-        abilities.forEach((ability, level) -> {
-            player.abilities.put(ability, level);
-        });
+        player.abilities.putAll(abilities);
     }
 
     // -----------------------------------
