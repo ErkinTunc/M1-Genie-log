@@ -22,7 +22,9 @@ public class Player {
     // ----------- Constructor ----------------
 
     public Player(String playerName, String avatarName, String avatarClass, int money, ArrayList<String> inventory) {
-        if (!avatarClass.equals("ARCHER") && !avatarClass.equals("ADVENTURER") && !avatarClass.equals("DWARF")) {
+        if (!avatarClass.equals("ARCHER") &&
+                !avatarClass.equals("ADVENTURER") &&
+                !avatarClass.equals("DWARF")) {
             return;
         }
 
@@ -45,8 +47,7 @@ public class Player {
     }
 
     public void addGameMoney(int amount) {
-        var value = Integer.valueOf(amount);
-        gameMoney = gameMoney + (value != null ? value : 0);
+        gameMoney = gameMoney + amount;
     }
 
     // ----------- Getters ----------------
@@ -80,10 +81,10 @@ public class Player {
         // XP threshold formula (integer division):
         // XP(n) = (n - 1) * 10 + (n * XP(n - 1)) / 4
 
-        levels.put(2, 10); 
-        levels.put(3, 27); 
-        levels.put(4, 57); 
-        levels.put(5, 111); 
+        levels.put(2, 10);
+        levels.put(3, 27);
+        levels.put(4, 57);
+        levels.put(5, 111);
 
         // TODO : ajouter les prochains niveaux
         return levels;
