@@ -5,6 +5,8 @@ import java.util.Random;
 
 public class UpdatePlayer {
 
+    // ---------------- Constants -------------------
+
     private final static String[] AVAILABLE_ITEMS = {
             "Lookout Ring : Prevents surprise attacks",
             "Scroll of Stupidity : INT-2 when applied to an enemy",
@@ -15,11 +17,13 @@ public class UpdatePlayer {
             "Holy Elixir : Recover your HP"
     };
 
+    // ---------------- Methods -------------------
+
     public static HashMap<String, HashMap<Integer, HashMap<String, Integer>>> abilitiesPerTypeAndLevel() {
         return CharacterRules.abilitiesPerTypeAndLevel();
     }
 
-    // -----------------------------------
+    
 
     public static boolean addXp(Player player, int xp) {
 
@@ -83,49 +87,10 @@ public class UpdatePlayer {
 
     private static void applyHealthRegeneration(Player player) {
         if (player.currentHealthPoints < player.maxHealthPoints / 2) {
-            healByAvatarClass(player);
+            CharacterRules.healByAvatarClass(player);
         }
     }
 
-    private static void healByAvatarClass(Player player) {
-        if (player.getAvatarClass().equals("ADVENTURER")) {
-            healAdventurer(player);
-
-        } else if (player.getAvatarClass().equals("DWARF")) {
-            healDwarf(player);
-
-        } else if (player.getAvatarClass().equals("ARCHER")) {
-            healArcher(player);
-        }
-    }
-
-    // -------- Sub-Sub-Methods -------------
-
-    private static void healAdventurer(Player player) {
-        player.currentHealthPoints += 2;
-
-        if (player.getLevel() < 3) {
-            player.currentHealthPoints -= 1;
-        }
-    }
-
-    private static void healDwarf(Player player) {
-        player.currentHealthPoints += 1;
-
-        if (player.inventory.contains("Holy Elixir")) {
-            player.currentHealthPoints += 1;
-        }
-
-    }
-
-    private static void healArcher(Player player) {
-        player.currentHealthPoints += 1;
-
-        if (player.inventory.contains("Magic Bow")) {
-            player.currentHealthPoints += player.currentHealthPoints / 8 - 1;
-        }
-    }
-    // -----------------------------------
 
     private static void capHealthToMaximum(Player player) {
         if (player.currentHealthPoints > player.maxHealthPoints) {

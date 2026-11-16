@@ -111,4 +111,41 @@ public class CharacterRules {
         return abilitiesByLevel;
     }
 
+    public static void healByAvatarClass(Player player) {
+        if (player.getAvatarClass().equals("ADVENTURER")) {
+            healAdventurer(player);
+
+        } else if (player.getAvatarClass().equals("DWARF")) {
+            healDwarf(player);
+
+        } else if (player.getAvatarClass().equals("ARCHER")) {
+            healArcher(player);
+        }
+    }
+
+    private static void healAdventurer(Player player) {
+        player.currentHealthPoints += 2;
+
+        if (player.getLevel() < 3) {
+            player.currentHealthPoints -= 1;
+        }
+    }
+
+    private static void healDwarf(Player player) {
+        player.currentHealthPoints += 1;
+
+        if (player.inventory.contains("Holy Elixir")) {
+            player.currentHealthPoints += 1;
+        }
+
+    }
+
+    private static void healArcher(Player player) {
+        player.currentHealthPoints += 1;
+
+        if (player.inventory.contains("Magic Bow")) {
+            player.currentHealthPoints += player.currentHealthPoints / 8 - 1;
+        }
+    }
+
 }
