@@ -147,13 +147,19 @@ public class UpdatePlayer {
     }
 
     private static void updateAbilities(Player player, int newLevel) {
-        HashMap<String, Integer> abilities = abilitiesPerTypeAndLevel()
-                .get(player.getAvatarClass())
-                .get(newLevel);
+        HashMap<String, Integer> abilities = getLevelAbilities(player.getAvatarClass(), newLevel);
 
         abilities.forEach((ability, level) -> {
             player.abilities.put(ability, level);
         });
+    }
+
+    private static HashMap<String, Integer> getLevelAbilities(
+            String avatarClass, int level) {
+
+        return abilitiesPerTypeAndLevel()
+                .get(avatarClass)
+                .get(level);
     }
 
     // -----------------------------------
@@ -180,16 +186,19 @@ public class UpdatePlayer {
 
     private static void applyHealthRegeneration(Player player) {
         if (player.currentHealthPoints < player.maxHealthPoints / 2) {
+            healByAvatarClass(player);
+        }
+    }
 
-            if (player.getAvatarClass().equals("ADVENTURER")) {
-                healAdventurer(player);
+    private static void healByAvatarClass(Player player) {
+        if (player.getAvatarClass().equals("ADVENTURER")) {
+            healAdventurer(player);
 
-            } else if (player.getAvatarClass().equals("DWARF")) {
-                healDwarf(player);
+        } else if (player.getAvatarClass().equals("DWARF")) {
+            healDwarf(player);
 
-            } else if (player.getAvatarClass().equals("ARCHER")) {
-                healArcher(player);
-            }
+        } else if (player.getAvatarClass().equals("ARCHER")) {
+            healArcher(player);
         }
     }
 
@@ -228,7 +237,7 @@ public class UpdatePlayer {
     }
 
     // ------------ Getters ----------------
-    
+
     public static HashMap<String, Integer> getInitialAbilities(String avatarClass) {
         return abilitiesPerTypeAndLevel().get(avatarClass).get(1);
     }
