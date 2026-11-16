@@ -36,7 +36,10 @@ public class Affichage {
         StringBuilder result = new StringBuilder("\n\nCapacités :");
 
         player.abilities.forEach((name, level) -> {
-            result.append("\n   " + name + " : " + level);
+            result.append("\n   ")
+                    .append(name)
+                    .append(" : ")
+                    .append(level);
         });
 
         return result.toString();

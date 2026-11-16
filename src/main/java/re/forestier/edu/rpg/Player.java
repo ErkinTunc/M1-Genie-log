@@ -21,7 +21,7 @@ public class Player {
 
     // ----------- Constructor ----------------
 
-    public Player(String playerName, String avatarName, String avatarClass, int money, ArrayList<String> inventory) {
+    public Player(String playerName, String avatarName, String avatarClass, int gameMoney, ArrayList<String> inventory) {
         if (!avatarClass.equals("ARCHER") &&
                 !avatarClass.equals("ADVENTURER") &&
                 !avatarClass.equals("DWARF")) {
@@ -31,7 +31,7 @@ public class Player {
         this.playerName = playerName;
         this.avatarName = avatarName;
         this.avatarClass = avatarClass;
-        this.gameMoney = Integer.valueOf(money);
+        this.gameMoney = gameMoney;
         this.inventory = inventory;
         this.abilities = UpdatePlayer.abilitiesPerTypeAndLevel().get(avatarClass).get(1);
     }
