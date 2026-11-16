@@ -13,7 +13,7 @@ public class Affichage {
         return playerDescription;
     }
 
-    // -------- Sub-Methods -------------
+    // -------- Helper-Methods -------------
 
     private static String formatPlayerInfo(Player player) {
         StringBuilder result = new StringBuilder();

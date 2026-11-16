@@ -17,8 +17,9 @@ public class UpdatePlayer {
             "Holy Elixir : Recover your HP"
     };
 
-    // ---------------- Methods -------------------
+    // ---------------- Public API -------------------
 
+    // Kept for compatibility with existing callers and tests.
     public static HashMap<String, HashMap<Integer, HashMap<String, Integer>>> abilitiesPerTypeAndLevel() {
         return CharacterRules.abilitiesPerTypeAndLevel();
     }
@@ -38,7 +39,17 @@ public class UpdatePlayer {
         return false;
     }
 
-    // --------- Sub-Methods --------------
+    public static void updateHealthAtEndOfTurn(Player player) {
+
+        if (isPlayerKO(player)) {
+            return;
+        }
+
+        applyHealthRegeneration(player);
+        capHealthToMaximum(player);
+    }
+
+    // ---------------- XP helpers ---------------------
 
     private static void giveRandomItem(Player player) {
         Random random = new Random();
@@ -52,19 +63,7 @@ public class UpdatePlayer {
         player.abilities.putAll(abilities);
     }
 
-    // -----------------------------------
-
-    public static void updateHealthAtEndOfTurn(Player player) {
-
-        if (isPlayerKO(player)) {
-            return;
-        }
-
-        applyHealthRegeneration(player);
-        capHealthToMaximum(player);
-    }
-
-    // -------- Sub-Methods -------------
+    // --------------- Health helpers -------------------
 
     private static boolean isPlayerKO(Player player) {
         if (player.currentHealthPoints == 0) {

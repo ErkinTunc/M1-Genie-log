@@ -40,7 +40,7 @@ public class Player {
         this.abilities = CharacterRules.getInitialAbilities(avatarClass);
     }
 
-    // ----------- Methods ----------------
+    // ----------- Public Methods ----------------
 
     public void removeGameMoney(int amount) throws IllegalArgumentException {
         if (gameMoney - amount < 0) {
@@ -54,7 +54,7 @@ public class Player {
         gameMoney = gameMoney + amount;
     }
 
-    // ----------- Getters ----------------
+    // ------- Getters ----------
 
     public String getAvatarClass() {
         return avatarClass;
@@ -72,7 +72,11 @@ public class Player {
         return maxLevel;
     }
 
-    // ----------- Sub-Methods ---------------
+    public int getXp() {
+        return this.xp;
+    }
+
+    // ----------- Private helpers ---------------
 
     private static int calculateXpThreshold(int level) {
         // XP threshold formula (integer division):
@@ -85,12 +89,6 @@ public class Player {
         }
 
         return threshold;
-    }
-
-    // --------------------------------
-
-    public int getXp() {
-        return this.xp;
     }
 
 }

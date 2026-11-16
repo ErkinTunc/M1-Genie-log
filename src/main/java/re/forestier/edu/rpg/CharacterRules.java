@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 public class CharacterRules {
 
+    // ---------------- Ability definitions ----------------------
+
     public static HashMap<String, HashMap<Integer, HashMap<String, Integer>>> abilitiesPerTypeAndLevel() {
 
         HashMap<String, HashMap<Integer, HashMap<String, Integer>>> abilitiesPerTypeAndLevel = new HashMap<>();
@@ -14,8 +16,6 @@ public class CharacterRules {
 
         return abilitiesPerTypeAndLevel;
     }
-
-    // --------- Sub-Methods --------------
 
     private static HashMap<Integer, HashMap<String, Integer>> createAdventurerAbilities() {
 
@@ -111,6 +111,34 @@ public class CharacterRules {
         return abilitiesByLevel;
     }
 
+    // ------------------ Ability lookup ------------------------
+
+    // package-private method
+    static HashMap<String, Integer> getLevelAbilities(
+            String avatarClass, int level) {
+
+        return abilitiesPerTypeAndLevel()
+                .get(avatarClass)
+                .get(level);
+    }
+
+    // package-private method
+    static HashMap<String, Integer> getInitialAbilities(
+            String avatarClass) {
+        return getLevelAbilities(avatarClass, 1);
+    }
+
+    // ------------------ Character validation ------------------------
+
+    // package-private method
+    static boolean isValidAvatarClass(String avatarClass) {
+        return avatarClass.equals("ARCHER")
+                || avatarClass.equals("ADVENTURER")
+                || avatarClass.equals("DWARF");
+    }
+
+    // ------------------ Healing rules ------------------------
+
     public static void healByAvatarClass(Player player) {
         switch (player.getAvatarClass()) {
             case "ADVENTURER" -> healAdventurer(player);
@@ -146,27 +174,4 @@ public class CharacterRules {
         }
     }
 
-    // package-private method
-    static HashMap<String, Integer> getLevelAbilities(
-            String avatarClass, int level) {
-
-        return abilitiesPerTypeAndLevel()
-                .get(avatarClass)
-                .get(level);
-    }
-
-    // package-private method
-    static boolean isValidAvatarClass(String avatarClass) {
-        return avatarClass.equals("ARCHER")
-                || avatarClass.equals("ADVENTURER")
-                || avatarClass.equals("DWARF");
-    }
-
-    // ------------ Getters ----------------
-
-    // package-private method
-    static HashMap<String, Integer> getInitialAbilities(
-            String avatarClass) {
-        return getLevelAbilities(avatarClass, 1);
-    }
 }
