@@ -37,7 +37,7 @@ public class Player {
         this.avatarClass = avatarClass;
         this.gameMoney = gameMoney;
         this.inventory = inventory;
-        this.abilities = UpdatePlayer.getInitialAbilities(avatarClass);
+        this.abilities = CharacterRules.getInitialAbilities(avatarClass);
     }
 
     private static boolean isValidAvatarClass(String avatarClass) {
