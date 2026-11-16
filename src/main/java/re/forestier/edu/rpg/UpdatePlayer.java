@@ -126,16 +126,27 @@ public class UpdatePlayer {
         return false;
     }
 
-    // updateHealthAtEndOfTurn met à jour les points de vie
     public static void updateHealthAtEndOfTurn(Player player) {
 
-        // 0 hp: health control
-        if (player.currentHealthPoints == 0) {
-            System.out.println("Le joueur est KO !");
+        if (isPlayerKO(player)) {
             return;
         }
 
-        // low hp: class attributes modify to health
+        applyHealthRegeneration(player);
+        capHealthToMaximum(player);
+    }
+
+    // -------- Sub-Functions ----------
+
+    private static boolean isPlayerKO(Player player) {
+        if (player.currentHealthPoints == 0) {
+            System.out.println("Le joueur est KO !");
+            return true;
+        }
+        return false;
+    }
+
+    private static void applyHealthRegeneration(Player player) {
         if (player.currentHealthPoints < player.maxHealthPoints / 2) {
             if (!player.getAvatarClass().equals("ADVENTURER")) {
                 if (player.getAvatarClass().equals("DWARF")) {
@@ -158,11 +169,11 @@ public class UpdatePlayer {
                 }
             }
         }
+    }
 
-        // more hp: than possible (Go back to natural)
+    private static void capHealthToMaximum(Player player) {
         if (player.currentHealthPoints > player.maxHealthPoints) {
             player.currentHealthPoints = player.maxHealthPoints;
         }
-
     }
 }
