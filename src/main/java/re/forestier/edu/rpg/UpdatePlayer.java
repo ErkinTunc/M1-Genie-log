@@ -179,28 +179,46 @@ public class UpdatePlayer {
 
     private static void applyHealthRegeneration(Player player) {
         if (player.currentHealthPoints < player.maxHealthPoints / 2) {
-            if (!player.getAvatarClass().equals("ADVENTURER")) {
-                if (player.getAvatarClass().equals("DWARF")) {
-                    if (player.inventory.contains("Holy Elixir")) {
-                        player.currentHealthPoints += 1;
-                    }
-                    player.currentHealthPoints += 1;
-                }
 
-                if (player.getAvatarClass().equals("ARCHER")) {
-                    player.currentHealthPoints += 1;
-                    if (player.inventory.contains("Magic Bow")) {
-                        player.currentHealthPoints += player.currentHealthPoints / 8 - 1;
-                    }
-                }
-            } else {
-                player.currentHealthPoints += 2;
-                if (player.getLevel() < 3) {
-                    player.currentHealthPoints -= 1;
-                }
+            if (player.getAvatarClass().equals("ADVENTURER")) {
+                healAdventurer(player);
+
+            } else if (player.getAvatarClass().equals("DWARF")) {
+                healDwarf(player);
+
+            } else if (player.getAvatarClass().equals("ARCHER")) {
+                healArcher(player);
             }
         }
     }
+
+    // -------- Sub-Sub-Methods -------------
+
+    private static void healAdventurer(Player player) {
+        player.currentHealthPoints += 2;
+
+        if (player.getLevel() < 3) {
+            player.currentHealthPoints -= 1;
+        }
+    }
+
+    private static void healDwarf(Player player) {
+        player.currentHealthPoints += 1;
+
+        if (player.inventory.contains("Holy Elixir")) {
+            player.currentHealthPoints += 1;
+        }
+
+    }
+
+    private static void healArcher(Player player) {
+        player.currentHealthPoints += 1;
+
+        if (player.inventory.contains("Magic Bow")) {
+            player.currentHealthPoints += player.currentHealthPoints / 8 - 1;
+        }
+    }
+    // -----------------------------------
 
     private static void capHealthToMaximum(Player player) {
         if (player.currentHealthPoints > player.maxHealthPoints) {
