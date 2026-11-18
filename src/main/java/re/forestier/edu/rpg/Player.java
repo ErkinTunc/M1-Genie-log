@@ -3,6 +3,13 @@ package re.forestier.edu.rpg;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Class represents an RPG player. It stores player information, manages
+ * in-game money, tracks the player's level, and contains abilities
+ * and inventory.
+ *
+ * @author Erkin Tunc Boya
+ */
 public class Player {
     public String playerName;
     public String avatarName;
@@ -21,6 +28,17 @@ public class Player {
 
     // ----------- Constructor ----------------
 
+    /**
+     * Creates a player with starting values.
+     * If the avatar class is invalid, the constructor stops
+     * without initializing the player's fields.
+     *
+     * @param playerName  The player's real name
+     * @param avatarName  The in-game character name
+     * @param avatarClass The avatar class name
+     * @param gameMoney   The starting in-game money
+     * @param inventory   The starting in-game inventory
+     */
     public Player(
             String playerName,
             String avatarName,
@@ -42,6 +60,13 @@ public class Player {
 
     // ----------- Public Methods ----------------
 
+    /**
+     * The player's balance cannot become negative.
+     *
+     * @param amount the amount of money to remove
+     * @throws IllegalArgumentException if the amount exceeds the player's current
+     *                                  balance
+     */
     public void removeGameMoney(int amount) throws IllegalArgumentException {
         if (gameMoney - amount < 0) {
             throw new IllegalArgumentException("Player can't have a negative money!");
@@ -60,6 +85,11 @@ public class Player {
         return avatarClass;
     }
 
+    /**
+     * Gives us the level that the player is on using XP.
+     *
+     * @return the current level based on XP, up to a predefined maximum value
+     */
     public int getLevel() {
         int maxLevel = 5;
         for (int level = 2; level <= maxLevel; level++) {

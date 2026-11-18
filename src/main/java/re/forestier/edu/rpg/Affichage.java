@@ -1,7 +1,16 @@
 package re.forestier.edu.rpg;
 
+/**
+ * This class provides formatted player information as text.
+ *
+ * @author Erkin Tunc Boya
+ */
 public class Affichage {
 
+    /**
+     * @param player the chosen player
+     * @return the player's information, abilities and inventory as a String
+     */
     public static String getPlayerSummary(Player player) {
 
         String playerDescription = "";

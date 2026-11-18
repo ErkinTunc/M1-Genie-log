@@ -3,6 +3,12 @@ package re.forestier.edu.rpg;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * This class manages updates to the player's attributes,
+ * level progression, health regeneration, and abilities.
+ *
+ * @author Erkin Tunc Boya
+ */
 public class UpdatePlayer {
 
     // ---------------- Constants -------------------
@@ -19,11 +25,23 @@ public class UpdatePlayer {
 
     // ---------------- Public API -------------------
 
-    // Kept for compatibility with existing callers and tests.
+    /**
+     * Kept for compatibility with existing callers and tests.
+     *
+     * @return a map of character abilities for each class and level
+     */
     public static HashMap<String, HashMap<Integer, HashMap<String, Integer>>> abilitiesPerTypeAndLevel() {
         return CharacterRules.abilitiesPerTypeAndLevel();
     }
 
+    /**
+     * If the player levels up with the given XP, they get a new random item and
+     * receive updated abilities.
+     *
+     * @param player the player whose XP will change
+     * @param xp     the XP that will be added
+     * @return true if the player levels up, false otherwise
+     */
     public static boolean addXp(Player player, int xp) {
 
         int currentLevel = player.getLevel();
@@ -39,6 +57,15 @@ public class UpdatePlayer {
         return false;
     }
 
+    /**
+     * Health regeneration happens when the player has less than half
+     * of their maximum health.
+     * If HP is 0, a KO message is printed and no regeneration occurs.
+     * If the player's HP is above the maximum limit, it is reduced
+     * to the maximum possible HP.
+     *
+     * @param player the player whose health will be updated
+     */
     public static void updateHealthAtEndOfTurn(Player player) {
 
         if (player.currentHealthPoints == 0) {

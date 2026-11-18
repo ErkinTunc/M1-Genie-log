@@ -2,10 +2,20 @@ package re.forestier.edu.rpg;
 
 import java.util.HashMap;
 
+/**
+ * The class defines character abilities for each character class at each level
+ * and determines the healing rules for each player based on their class.
+ *
+ * @author Erkin Tunc Boya
+ */
 public class CharacterRules {
 
     // ---------------- Ability definitions ----------------------
 
+    /**
+     * @return a map of character classes, where each class has its own levels
+     *         and each level contains its abilities
+     */
     public static HashMap<String, HashMap<Integer, HashMap<String, Integer>>> abilitiesPerTypeAndLevel() {
 
         HashMap<String, HashMap<Integer, HashMap<String, Integer>>> abilitiesPerTypeAndLevel = new HashMap<>();
@@ -113,7 +123,6 @@ public class CharacterRules {
 
     // ------------------ Ability lookup ------------------------
 
-    // package-private method
     static HashMap<String, Integer> getLevelAbilities(
             String avatarClass, int level) {
 
@@ -122,7 +131,6 @@ public class CharacterRules {
                 .get(level);
     }
 
-    // package-private method
     static HashMap<String, Integer> getInitialAbilities(
             String avatarClass) {
         return getLevelAbilities(avatarClass, 1);
@@ -130,7 +138,6 @@ public class CharacterRules {
 
     // ------------------ Character validation ------------------------
 
-    // package-private method
     static boolean isValidAvatarClass(String avatarClass) {
         return avatarClass.equals("ARCHER")
                 || avatarClass.equals("ADVENTURER")
@@ -139,6 +146,12 @@ public class CharacterRules {
 
     // ------------------ Healing rules ------------------------
 
+    /**
+     * Each character has different regeneration rules, so we need
+     * separate rules for each of them.
+     *
+     * @param player the player whose health points may be updated
+     */
     public static void healByAvatarClass(Player player) {
         switch (player.getAvatarClass()) {
             case "ADVENTURER" -> healAdventurer(player);
