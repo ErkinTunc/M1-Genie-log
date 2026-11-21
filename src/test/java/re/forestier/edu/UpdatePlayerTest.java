@@ -245,12 +245,16 @@ public class UpdatePlayerTest {
 
     @Test
     void testDwarfWithHolyElixir() {
-        Player player = createPlayer("DWARF");
-        player.inventory.add("Holy Elixir");
+        Player dwarf = createPlayer("DWARF");
+        dwarf.inventory.add("Holy Elixir : Recover your HP");
 
-        UpdatePlayer.updateHealthAtEndOfTurn(player);
+        int normalHealing = 1;
+        int elixirBonus = 1;
+        int expectedHealth = dwarf.currentHealthPoints + normalHealing + elixirBonus;
 
-        assertThat(player.currentHealthPoints, is(42));
+        UpdatePlayer.updateHealthAtEndOfTurn(dwarf);
+
+        assertThat(dwarf.currentHealthPoints, is(expectedHealth));
     }
 
     // --- Archer ---

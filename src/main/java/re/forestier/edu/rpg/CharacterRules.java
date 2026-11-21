@@ -173,7 +173,7 @@ public class CharacterRules {
     private static void healDwarf(Player player) {
         player.currentHealthPoints += 1;
 
-        if (player.inventory.contains("Holy Elixir")) {
+        if (player.inventory.contains("Holy Elixir : Recover your HP")) {
             player.currentHealthPoints += 1;
         }
 
