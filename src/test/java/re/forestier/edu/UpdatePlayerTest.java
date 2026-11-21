@@ -2,7 +2,6 @@ package re.forestier.edu;
 
 import org.junit.jupiter.api.*;
 
-import re.forestier.edu.rpg.Affichage;
 import re.forestier.edu.rpg.UpdatePlayer;
 import re.forestier.edu.rpg.Player;
 
@@ -21,6 +20,8 @@ public class UpdatePlayerTest {
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
+
+    // ------------- Test Setup ---------------
 
     @BeforeEach
     void setUpPlayer() {
@@ -120,7 +121,28 @@ public class UpdatePlayerTest {
                 is(Map.of("CHA", 1)));
     }
 
-    // ----------- addXp Method Tests -------------------------
+    @Test
+    void testGoblinAbilities() {
+        var abilities = UpdatePlayer.abilitiesPerTypeAndLevel()
+                .get("GOBLIN");
+
+        assertThat(abilities.get(1),
+                is(Map.of("INT", 2, "ATK", 2, "ALC", 1)));
+
+        assertThat(abilities.get(2),
+                is(Map.of("ATK", 3, "ALC", 4)));
+
+        assertThat(abilities.get(3),
+                is(Map.of("VIS", 1)));
+
+        assertThat(abilities.get(4),
+                is(Map.of("DEF", 1)));
+
+        assertThat(abilities.get(5),
+                is(Map.of("DEF", 2, "ATK", 4)));
+    }
+
+    // ----------- XP & Level Progression -------------------------
 
     @Test
     void testAddXpWithoutLevelUp() {
@@ -154,28 +176,72 @@ public class UpdatePlayerTest {
     }
 
     @Test
-    void testAddXpMultipleLevels() {
-        boolean result = UpdatePlayer.addXp(player1, 57);
+    void testAdventurerSkippedLevelAbilities() {
+        Player adventurer = createPlayer("ADVENTURER");
+
+        boolean result = UpdatePlayer.addXp(adventurer, 57);
 
         assertThat(result, is(true));
-        assertThat(player1.getLevel(), is(4));
-        assertThat(player1.inventory.size(), is(1));
-        assertThat(player1.abilities.get("DEF"), is(3));
+        assertThat(adventurer.getLevel(), is(4));
+        assertThat(adventurer.inventory.size(), is(1));
+
+        assertThat(adventurer.abilities,
+                is(Map.of(
+                        "INT", 2,
+                        "ATK", 5,
+                        "CHA", 3,
+                        "ALC", 1,
+                        "DEF", 3)));
     }
 
     @Test
-    void testSkippedLevelAbilities() {
+    void testArcherLevelUpAbilities() {
+        Player archer = createPlayer("ARCHER");
+
+        UpdatePlayer.addXp(archer, 10);
+
+        assertThat(archer.getLevel(), is(2));
+        assertThat(archer.abilities,
+                is(Map.of(
+                        "INT", 1,
+                        "ATK", 3,
+                        "CHA", 2,
+                        "VIS", 3,
+                        "DEF", 1)));
+    }
+
+    @Test
+    void testDwarfSkippedLevelAbilities() {
         Player dwarf = createPlayer("DWARF");
 
         UpdatePlayer.addXp(dwarf, 27);
 
         assertThat(dwarf.getLevel(), is(3));
-        assertThat(dwarf.abilities.get("DEF"), is(1));
-        assertThat(dwarf.abilities.get("ALC"), is(5));
-        assertThat(dwarf.abilities.get("ATK"), is(4));
+        assertThat(dwarf.abilities,
+                is(Map.of(
+                        "INT", 1,
+                        "ATK", 4,
+                        "ALC", 5,
+                        "DEF", 1)));
     }
 
-    // ------------ updateHealthAtEndOfTurn method Testing --------------
+    @Test
+    void testGoblinSkippedLevelAbilities() {
+        Player goblin = createPlayer("GOBLIN");
+
+        UpdatePlayer.addXp(goblin, 111);
+
+        assertThat(goblin.getLevel(), is(5));
+        assertThat(goblin.abilities,
+                is(Map.of(
+                        "INT", 2,
+                        "ATK", 4,
+                        "ALC", 4,
+                        "VIS", 1,
+                        "DEF", 2)));
+    }
+
+    // ------------ Health - General Rules --------------
 
     @Test
     void testPlayerKO() {
@@ -221,8 +287,6 @@ public class UpdatePlayerTest {
         assertThat(player1.currentHealthPoints, is(100));
     }
 
-    // ----------- Invalid Health State -----------
-
     @Test
     void testInvalidHealthState() {
         UpdatePlayer.addXp(player1, 27);
@@ -235,6 +299,8 @@ public class UpdatePlayerTest {
         assertThat(player1.currentHealthPoints, is(0));
     }
 
+    // ------------- Health - Class-specific Rules -----------
+
     // --- Adventurer ---
     @Test
     void testAdventurerLevel3Healing() {
@@ -245,6 +311,26 @@ public class UpdatePlayerTest {
         UpdatePlayer.updateHealthAtEndOfTurn(player1);
 
         assertThat(player1.currentHealthPoints, is(42));
+    }
+
+    // --- Archer ---
+    @Test
+    void testArcherHealing() {
+        Player player = createPlayer("ARCHER");
+
+        UpdatePlayer.updateHealthAtEndOfTurn(player);
+
+        assertThat(player.currentHealthPoints, is(41));
+    }
+
+    @Test
+    void testArcherWithMagicBow() {
+        Player player = createPlayer("ARCHER");
+        player.inventory.add("Magic Bow");
+
+        UpdatePlayer.updateHealthAtEndOfTurn(player);
+
+        assertThat(player.currentHealthPoints, is(45));
     }
 
     // --- Dwarf ---
@@ -269,26 +355,6 @@ public class UpdatePlayerTest {
         UpdatePlayer.updateHealthAtEndOfTurn(dwarf);
 
         assertThat(dwarf.currentHealthPoints, is(expectedHealth));
-    }
-
-    // --- Archer ---
-    @Test
-    void testArcherHealing() {
-        Player player = createPlayer("ARCHER");
-
-        UpdatePlayer.updateHealthAtEndOfTurn(player);
-
-        assertThat(player.currentHealthPoints, is(41));
-    }
-
-    @Test
-    void testArcherWithMagicBow() {
-        Player player = createPlayer("ARCHER");
-        player.inventory.add("Magic Bow");
-
-        UpdatePlayer.updateHealthAtEndOfTurn(player);
-
-        assertThat(player.currentHealthPoints, is(45));
     }
 
 }
