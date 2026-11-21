@@ -163,6 +163,18 @@ public class UpdatePlayerTest {
         assertThat(player1.abilities.get("DEF"), is(3));
     }
 
+    @Test
+    void testSkippedLevelAbilities() {
+        Player dwarf = createPlayer("DWARF");
+
+        UpdatePlayer.addXp(dwarf, 27);
+
+        assertThat(dwarf.getLevel(), is(3));
+        assertThat(dwarf.abilities.get("DEF"), is(1));
+        assertThat(dwarf.abilities.get("ALC"), is(5));
+        assertThat(dwarf.abilities.get("ATK"), is(4));
+    }
+
     // ---------------------- majDinDeTour method Testing ----------------
 
     @Test

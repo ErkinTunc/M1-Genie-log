@@ -48,10 +48,14 @@ public class UpdatePlayer {
         player.xp += xp;
         int newLevel = player.getLevel();
 
-        if (newLevel != currentLevel) {
-            // Player leveled-up!
+        if (newLevel > currentLevel) {
             giveRandomItem(player);
-            updateAbilities(player, newLevel);
+
+            for (int levelToApply = currentLevel + 1; levelToApply <= newLevel; levelToApply++) {
+
+                updateAbilities(player, levelToApply);
+            }
+
             return true;
         }
         return false;
