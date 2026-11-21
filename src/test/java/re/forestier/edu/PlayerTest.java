@@ -60,7 +60,7 @@ public class PlayerTest {
         assertThat(player.getAvatarClass(), is(nullValue()));
     }
 
-    // --------------- Player - addMoeny() -------------------
+    // --------------- Player - addGameMoney() -------------------
 
     // Initial money = 100
 
@@ -82,7 +82,7 @@ public class PlayerTest {
         assertThat(player1.gameMoney, is(95));
     }
 
-    // --------------- Player - removeMoney() -------------------
+    // --------------- Player - removeGameMoney() -------------------
 
     // Initial money = 100
 

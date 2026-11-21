@@ -175,7 +175,7 @@ public class UpdatePlayerTest {
         assertThat(dwarf.abilities.get("ATK"), is(4));
     }
 
-    // ---------------------- majDinDeTour method Testing ----------------
+    // ------------ updateHealthAtEndOfTurn method Testing --------------
 
     @Test
     void testPlayerKO() {
@@ -219,6 +219,20 @@ public class UpdatePlayerTest {
         UpdatePlayer.updateHealthAtEndOfTurn(player1);
 
         assertThat(player1.currentHealthPoints, is(100));
+    }
+
+    // ----------- Invalid Health State -----------
+
+    @Test
+    void testInvalidHealthState() {
+        UpdatePlayer.addXp(player1, 27);
+
+        player1.maxHealthPoints = 0;
+        player1.currentHealthPoints = -1;
+
+        UpdatePlayer.updateHealthAtEndOfTurn(player1);
+
+        assertThat(player1.currentHealthPoints, is(0));
     }
 
     // --- Adventurer ---
@@ -277,17 +291,4 @@ public class UpdatePlayerTest {
         assertThat(player.currentHealthPoints, is(45));
     }
 
-    // ----------- Invalid Health State -----------
-
-    @Test
-    void testInvalidHealthState() {
-        UpdatePlayer.addXp(player1, 27);
-
-        player1.maxHealthPoints = 0;
-        player1.currentHealthPoints = -1;
-
-        UpdatePlayer.updateHealthAtEndOfTurn(player1);
-
-        assertThat(player1.currentHealthPoints, is(0));
-    }
 }
