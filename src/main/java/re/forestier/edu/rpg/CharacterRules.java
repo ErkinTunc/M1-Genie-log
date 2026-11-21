@@ -23,6 +23,7 @@ public class CharacterRules {
         abilitiesPerTypeAndLevel.put("ADVENTURER", createAdventurerAbilities());
         abilitiesPerTypeAndLevel.put("ARCHER", createArcherAbilities());
         abilitiesPerTypeAndLevel.put("DWARF", createDwarfAbilities());
+        abilitiesPerTypeAndLevel.put("GOBLIN", createGoblinAbilities());
 
         return abilitiesPerTypeAndLevel;
     }
@@ -121,6 +122,36 @@ public class CharacterRules {
         return abilitiesByLevel;
     }
 
+    private static HashMap<Integer, HashMap<String, Integer>> createGoblinAbilities() {
+
+        HashMap<Integer, HashMap<String, Integer>> abilitiesByLevel = new HashMap<>();
+
+        HashMap<String, Integer> goblinLevel1 = new HashMap<>();
+        goblinLevel1.put("INT", 2);
+        goblinLevel1.put("ATK", 2);
+        goblinLevel1.put("ALC", 1);
+        abilitiesByLevel.put(1, goblinLevel1);
+
+        HashMap<String, Integer> goblinLevel2 = new HashMap<>();
+        goblinLevel2.put("ATK", 3);
+        goblinLevel2.put("ALC", 4);
+        abilitiesByLevel.put(2, goblinLevel2);
+
+        HashMap<String, Integer> goblinLevel3 = new HashMap<>();
+        goblinLevel3.put("VIS", 1);
+        abilitiesByLevel.put(3, goblinLevel3);
+
+        HashMap<String, Integer> goblinLevel4 = new HashMap<>();
+        goblinLevel4.put("DEF", 1);
+        abilitiesByLevel.put(4, goblinLevel4);
+
+        HashMap<String, Integer> goblinLevel5 = new HashMap<>();
+        goblinLevel5.put("DEF", 2);
+        goblinLevel5.put("ATK", 4);
+        abilitiesByLevel.put(5, goblinLevel5);
+
+        return abilitiesByLevel;
+    }
     // ------------------ Ability lookup ------------------------
 
     static HashMap<String, Integer> getLevelAbilities(
@@ -141,7 +172,8 @@ public class CharacterRules {
     static boolean isValidAvatarClass(String avatarClass) {
         return avatarClass.equals("ARCHER")
                 || avatarClass.equals("ADVENTURER")
-                || avatarClass.equals("DWARF");
+                || avatarClass.equals("DWARF")
+                || avatarClass.equals("GOBLIN");
     }
 
     // ------------------ Healing rules ------------------------
@@ -186,5 +218,7 @@ public class CharacterRules {
             player.currentHealthPoints += player.currentHealthPoints / 8 - 1;
         }
     }
+
+
 
 }
