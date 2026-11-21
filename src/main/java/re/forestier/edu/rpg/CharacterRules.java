@@ -152,6 +152,7 @@ public class CharacterRules {
 
         return abilitiesByLevel;
     }
+
     // ------------------ Ability lookup ------------------------
 
     static HashMap<String, Integer> getLevelAbilities(
@@ -189,6 +190,7 @@ public class CharacterRules {
             case "ADVENTURER" -> healAdventurer(player);
             case "DWARF" -> healDwarf(player);
             case "ARCHER" -> healArcher(player);
+            case "GOBLIN" -> healGoblin(player);
             default -> {
             }
         }
@@ -219,6 +221,8 @@ public class CharacterRules {
         }
     }
 
-
+    private static void healGoblin(Player player) {
+        player.currentHealthPoints += 2;
+    }
 
 }
