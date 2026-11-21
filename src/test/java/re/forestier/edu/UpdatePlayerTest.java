@@ -357,4 +357,14 @@ public class UpdatePlayerTest {
         assertThat(dwarf.currentHealthPoints, is(expectedHealth));
     }
 
+    // --- Goblin ---
+    @Test
+    void testGoblinHealing() {
+        Player goblin = createPlayer("GOBLIN");
+
+        UpdatePlayer.updateHealthAtEndOfTurn(goblin);
+
+        assertThat(goblin.currentHealthPoints, is(42));
+    }
+
 }
