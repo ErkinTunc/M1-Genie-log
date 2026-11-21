@@ -53,10 +53,10 @@ public class AffichageTest {
         String result = Affichage.getPlayerSummary(player1);
 
         assertThat(result, containsString("Capacités :"));
-        assertThat(result, containsString("INT : 2"));
+        assertThat(result, containsString("INT : 1"));
         assertThat(result, containsString("DEF : 1"));
         assertThat(result, containsString("ATK : 3"));
-        assertThat(result, containsString("CHA : 3"));
+        assertThat(result, containsString("CHA : 2"));
     }
 
     // ----------- Empty Inventory -----------

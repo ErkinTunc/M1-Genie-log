@@ -61,11 +61,11 @@ public class UpdatePlayerTest {
                 .get("ADVENTURER");
 
         assertThat(abilities.get(1),
-                is(Map.of("INT", 2, "DEF", 1,
-                        "ATK", 3, "CHA", 3)));
+                is(Map.of("INT", 1, "DEF", 1,
+                        "ATK", 3, "CHA", 2)));
 
-        // Known bug: Level 2 abilities are empty
-        assertThat(abilities.get(2), is(Map.of()));
+        assertThat(abilities.get(2),
+                is(Map.of("INT", 2, "CHA", 3)));
 
         assertThat(abilities.get(3),
                 is(Map.of("ATK", 5, "ALC", 1)));
@@ -139,6 +139,9 @@ public class UpdatePlayerTest {
         assertThat(player1.getLevel(), is(2));
         assertThat(result, is(true));
         assertThat(player1.inventory.size(), is(1)); // Add a random item
+
+        assertThat(player1.abilities.get("INT"), is(2));
+        assertThat(player1.abilities.get("CHA"), is(3));
     }
 
     @Test

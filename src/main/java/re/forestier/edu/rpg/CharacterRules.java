@@ -39,8 +39,8 @@ public class CharacterRules {
         abilitiesByLevel.put(1, adventurerLevel1);
 
         HashMap<String, Integer> adventurerLevel2 = new HashMap<>();
-        adventurerLevel1.put("INT", 2); // FIX
-        adventurerLevel1.put("CHA", 3); // FIX
+        adventurerLevel2.put("INT", 2);
+        adventurerLevel2.put("CHA", 3);
         abilitiesByLevel.put(2, adventurerLevel2);
 
         HashMap<String, Integer> adventurerLevel3 = new HashMap<>();
