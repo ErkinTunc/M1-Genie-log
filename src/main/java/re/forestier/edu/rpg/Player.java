@@ -106,6 +106,10 @@ public class Player {
         return this.xp;
     }
 
+    public float getMaxCarryWeight(){
+        return -1;// TODO : implement the method
+    }
+
     // ----------- Private helpers ---------------
 
     private static int calculateXpThreshold(int level) {

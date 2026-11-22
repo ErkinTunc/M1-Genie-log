@@ -17,10 +17,14 @@ public class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        this.player1 = new Player(
+        player1 = createPlayer("ADVENTURER");
+    }
+
+    private Player createPlayer(String avatarClass) {
+        return new Player(
                 "Florian",
                 "Grognak le barbare",
-                "ADVENTURER",
+                avatarClass,
                 100,
                 new ArrayList<>());
     }
@@ -58,6 +62,25 @@ public class PlayerTest {
                 100, new ArrayList<>());
 
         assertThat(player.getAvatarClass(), is(nullValue()));
+    }
+
+    // ----------- Carry Capacity Tests -----------
+
+    @Test
+    void testDefaultCarryCapacity() {
+        Player archer = createPlayer("ARCHER");
+
+        assertThat(player1.getMaxCarryWeight(), is(10.0f));
+        assertThat(archer.getMaxCarryWeight(), is(10.0f));
+    }
+
+    @Test
+    void testClassSpecificCarryCapacity() {
+        Player dwarf = createPlayer("DWARF");
+        Player goblin = createPlayer("GOBLIN");
+
+        assertThat(dwarf.getMaxCarryWeight(), is(8.0f));
+        assertThat(goblin.getMaxCarryWeight(), is(12.0f));
     }
 
     // --------------- Player - addGameMoney() -------------------
