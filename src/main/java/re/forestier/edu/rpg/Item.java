@@ -1,35 +1,38 @@
-
 package re.forestier.edu.rpg;
-
-/**
- *
- * @author Erkin Tunc Boya
- */
 
 public class Item {
 
-    // ---------- Constructer ------------
+    private final String name;
+    private final String description;
+    private final float weight;
+    private final int value;
+
+    // ------------- Constructor ------------
 
     public Item(String name) {
-        throw new UnsupportedOperationException("Not implemented");
+        ItemCatalog.Definition definition = ItemCatalog.get(name);
+
+        this.name = name;
+        this.description = definition.description();
+        this.weight = definition.weight();
+        this.value = definition.value();
     }
 
-
-    // ------------- Getters ------------
+    // ----------- Getters -------------
 
     public String getName() {
-        throw new UnsupportedOperationException("Not implemented");
+        return name;
     }
 
     public String getDescription() {
-        throw new UnsupportedOperationException("Not implemented");
+        return description;
     }
 
     public float getWeight() {
-        throw new UnsupportedOperationException("Not implemented");
+        return weight;
     }
 
     public int getValue() {
-        throw new UnsupportedOperationException("Not implemented");
+        return value;
     }
 }
