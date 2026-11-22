@@ -153,7 +153,7 @@ public class CharacterRules {
         return abilitiesByLevel;
     }
 
-    // ------------------ Ability lookup ------------------------
+    // ------------------ Getters ------------------------
 
     static HashMap<String, Integer> getLevelAbilities(
             String avatarClass, int level) {
@@ -166,6 +166,19 @@ public class CharacterRules {
     static HashMap<String, Integer> getInitialAbilities(
             String avatarClass) {
         return getLevelAbilities(avatarClass, 1);
+    }
+
+    static float getMaxCarryWeight(String avatarClass) {
+
+        if (!isValidAvatarClass(avatarClass)) {
+            throw new IllegalArgumentException("Unknown avatar class: " + avatarClass);
+        }
+
+        return switch (avatarClass) {
+            case "DWARF" -> 8.0f;
+            case "GOBLIN" -> 12.0f;
+            default -> 10.0f;
+        };
     }
 
     // ------------------ Character validation ------------------------

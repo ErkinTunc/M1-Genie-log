@@ -106,8 +106,8 @@ public class Player {
         return this.xp;
     }
 
-    public float getMaxCarryWeight(){
-        return -1;// TODO : implement the method
+    public float getMaxCarryWeight() {
+        return CharacterRules.getMaxCarryWeight(avatarClass);
     }
 
     // ----------- Private helpers ---------------
