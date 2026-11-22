@@ -4,10 +4,13 @@ import org.junit.jupiter.api.*;
 
 import re.forestier.edu.rpg.UpdatePlayer;
 import re.forestier.edu.rpg.Player;
+
+import re.forestier.edu.rpg.Item;
+
+// fail() fucntion
+import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail; // fail() fucntion
 
 import java.util.ArrayList;
 
@@ -62,6 +65,30 @@ public class PlayerTest {
                 100, new ArrayList<>());
 
         assertThat(player.getAvatarClass(), is(nullValue()));
+    }
+
+    // ----------- Inventory Tests -----------
+
+    @Test
+    void testAddItemWithinCapacity() {
+        Item ring = new Item("Lookout Ring");
+
+        assertTrue(player1.addItem(ring));
+        assertThat(player1.inventory.size(), is(1));
+    }
+
+    @Test
+    void testRejectItemOverCapacity() {
+        Player dwarf = createPlayer("DWARF");
+        Item staff = new Item("Rune Staff of Curse");
+
+        assertTrue(dwarf.addItem(staff));
+        assertTrue(dwarf.addItem(staff));
+        assertTrue(dwarf.addItem(staff)); // 6.6 kg
+
+        assertFalse(dwarf.addItem(staff)); // 8.8 kg > 8.0 kg
+
+        assertThat(dwarf.inventory.size(), is(3));
     }
 
     // ----------- Carry Capacity Tests -----------

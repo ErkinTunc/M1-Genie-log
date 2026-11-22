@@ -79,6 +79,10 @@ public class Player {
         gameMoney = gameMoney + amount;
     }
 
+    public boolean addItem(Item item) {
+        throw new UnsupportedOperationException("Not implemented");
+    }
+
     // ------- Getters ----------
 
     public String getAvatarClass() {
