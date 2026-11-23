@@ -11,18 +11,6 @@ import java.util.Random;
  */
 public class UpdatePlayer {
 
-    // ---------------- Constants -------------------
-
-    private final static String[] AVAILABLE_ITEMS = {
-            "Lookout Ring : Prevents surprise attacks",
-            "Scroll of Stupidity : INT-2 when applied to an enemy",
-            "Draupnir : Increases XP gained by 100%",
-            "Magic Charm : Magic +10 for 5 rounds",
-            "Rune Staff of Curse : May burn your ennemies... Or yourself. Who knows?",
-            "Combat Edge : Well, that's an edge",
-            "Holy Elixir : Recover your HP"
-    };
-
     // ---------------- Public API -------------------
 
     /**
@@ -85,7 +73,14 @@ public class UpdatePlayer {
 
     private static void giveRandomItem(Player player) {
         Random random = new Random();
-        player.inventory.add(AVAILABLE_ITEMS[random.nextInt(AVAILABLE_ITEMS.length)]);
+
+        var itemNames = ItemCatalog.getLootableItemNames();
+
+        int randomIndex = random.nextInt(itemNames.size());
+        String selectedItemName = itemNames.get(randomIndex);
+
+        Item item = new Item(selectedItemName);
+        player.addItem(item);
     }
 
     private static void updateAbilities(Player player, int newLevel) {

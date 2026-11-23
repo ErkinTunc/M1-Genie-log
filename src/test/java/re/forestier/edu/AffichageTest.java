@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 import re.forestier.edu.rpg.Affichage;
 import re.forestier.edu.rpg.UpdatePlayer;
 import re.forestier.edu.rpg.Player;
+import re.forestier.edu.rpg.Item;
 
 import java.util.ArrayList;
 
@@ -72,8 +73,8 @@ public class AffichageTest {
 
     @Test
     void testInventoryWithItems() {
-        player1.inventory.add("Magic Bow");
-        player1.inventory.add("Holy Elixir");
+        player1.addItem(new Item("Magic Bow"));
+        player1.addItem(new Item("Holy Elixir"));
 
         String result = Affichage.getPlayerSummary(player1);
 

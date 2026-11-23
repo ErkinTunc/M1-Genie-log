@@ -220,7 +220,7 @@ public class CharacterRules {
     private static void healDwarf(Player player) {
         player.currentHealthPoints += 1;
 
-        if (player.inventory.contains("Holy Elixir : Recover your HP")) {
+        if (player.hasItem("Holy Elixir")) {
             player.currentHealthPoints += 1;
         }
 
@@ -229,7 +229,7 @@ public class CharacterRules {
     private static void healArcher(Player player) {
         player.currentHealthPoints += 1;
 
-        if (player.inventory.contains("Magic Bow")) {
+        if (player.hasItem("Magic Bow")) {
             player.currentHealthPoints += player.currentHealthPoints / 8 - 1;
         }
     }

@@ -20,8 +20,8 @@ public class GlobalTest {
     @Test
     void testAffichageBase() {
         Player player1 = new Player(
-            "Florian", "Gnognak le Barbare",
-             "ADVENTURER", 200, new ArrayList<>());
+                "Florian", "Gnognak le Barbare",
+                "ADVENTURER", 200, new ArrayList<>());
 
         UpdatePlayer.addXp(player1, 20);
         player1.inventory = new ArrayList<>();

@@ -57,9 +57,12 @@ public class Affichage {
     private static String formatInventory(Player player) {
         StringBuilder result = new StringBuilder("\n\nInventaire :");
 
-        player.inventory.forEach(item -> {
-            result.append("\n   ").append(item);
-        });
+        for (Item item : player.inventory) {
+            result.append("\n   ")
+                    .append(item.getName())
+                    .append(" : ")
+                    .append(item.getDescription());
+        }
 
         return result.toString();
     }

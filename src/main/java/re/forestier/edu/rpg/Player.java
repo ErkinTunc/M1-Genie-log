@@ -24,7 +24,7 @@ public class Player {
     protected int xp;
 
     public HashMap<String, Integer> abilities;
-    public ArrayList<String> inventory;
+    public ArrayList<Item> inventory;
 
     // ----------- Constructor ----------------
 
@@ -44,7 +44,7 @@ public class Player {
             String avatarName,
             String avatarClass,
             int gameMoney,
-            ArrayList<String> inventory) {
+            ArrayList<Item> inventory) {
 
         if (!CharacterRules.isValidAvatarClass(avatarClass)) {
             return;
@@ -80,7 +80,28 @@ public class Player {
     }
 
     public boolean addItem(Item item) {
-        throw new UnsupportedOperationException("Not implemented");
+        float currentWeight = 0;
+
+        for (Item inventoryItem : inventory) {
+            currentWeight += inventoryItem.getWeight();
+        }
+
+        if (currentWeight + item.getWeight() > this.getMaxCarryWeight()) {
+            return false;
+        }
+
+        inventory.add(item);
+        return true;
+    }
+
+    public boolean hasItem(String itemName) {
+        for (Item item : inventory) {
+            if (item.getName().equals(itemName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // ------- Getters ----------

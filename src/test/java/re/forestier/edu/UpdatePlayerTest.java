@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 
 import re.forestier.edu.rpg.UpdatePlayer;
 import re.forestier.edu.rpg.Player;
+import re.forestier.edu.rpg.Item;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UpdatePlayerTest {
 
@@ -325,12 +327,15 @@ public class UpdatePlayerTest {
 
     @Test
     void testArcherWithMagicBow() {
-        Player player = createPlayer("ARCHER");
-        player.inventory.add("Magic Bow");
+        Player archer = createPlayer("ARCHER");
+        Item magicBow = new Item("Magic Bow");
 
-        UpdatePlayer.updateHealthAtEndOfTurn(player);
+        boolean itemAdded = archer.addItem(magicBow);
+        assertTrue(itemAdded);
 
-        assertThat(player.currentHealthPoints, is(45));
+        UpdatePlayer.updateHealthAtEndOfTurn(archer);
+
+        assertThat(archer.currentHealthPoints, is(45));
     }
 
     // --- Dwarf ---
@@ -346,7 +351,9 @@ public class UpdatePlayerTest {
     @Test
     void testDwarfWithHolyElixir() {
         Player dwarf = createPlayer("DWARF");
-        dwarf.inventory.add("Holy Elixir : Recover your HP");
+
+        Item holyElixir = new Item("Holy Elixir");
+        dwarf.addItem(holyElixir);
 
         int normalHealing = 1;
         int elixirBonus = 1;

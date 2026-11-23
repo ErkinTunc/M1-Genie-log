@@ -2,6 +2,8 @@
 package re.forestier.edu.rpg;
 
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines the available items and their properties.
@@ -67,4 +69,13 @@ final class ItemCatalog {
 
         return ITEMS.get(name);
     }
+
+    static List<String> getLootableItemNames() {
+        List<String> names = new ArrayList<>(ITEMS.keySet());
+
+        names.remove("Magic Bow");
+
+        return names;
+    }
+
 }
